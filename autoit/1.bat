@@ -1,0 +1,2 @@
+echo hhhhhhh
+pause
