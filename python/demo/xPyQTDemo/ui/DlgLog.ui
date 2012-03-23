@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DlgLog</class>
+ <widget class="QDialog" name="DlgLog">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>793</width>
+    <height>700</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>对话框试程序</string>
+  </property>
+  <widget class="QTextEdit" name="edtMsg">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>440</y>
+     <width>791</width>
+     <height>251</height>
+    </rect>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnAnalystLog">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>90</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>分析</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="edtLogPath">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>0</y>
+     <width>401</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTreeView" name="treeViewWarnLog">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>280</y>
+     <width>491</width>
+     <height>161</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnMergeLog">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>90</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>合并</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>71</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>当前LOG目录:</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupSvrList">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>20</y>
+     <width>501</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>服务器</string>
+   </property>
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>10</y>
+      <width>501</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout"/>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="btnImportLog">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>90</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>导入</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="edtDownByFileName">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>70</y>
+     <width>231</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnDownLogByFileName">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>120</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>开始</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="edtDownSpeed">
+   <property name="geometry">
+    <rect>
+     <x>650</x>
+     <y>40</y>
+     <width>41</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="inputMask">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>40</y>
+     <width>51</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>下载速度</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>700</x>
+     <y>40</y>
+     <width>31</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>KB/s</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>70</y>
+     <width>71</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>文件名</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="cbSvrGroup">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>30</y>
+     <width>101</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="chkFuzzy">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>70</y>
+     <width>72</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>模糊匹配</string>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnAddTask">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>90</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>加任务</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnClearTask">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>90</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>清任务</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="chkCompressOnFinish">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>70</y>
+     <width>81</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>下载完压缩</string>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnDumpCmd">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>120</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>生成命令行</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="chkGmlog">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>70</y>
+     <width>51</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>gmlog</string>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>btnAnalystLog</sender>
+   <signal>clicked()</signal>
+   <receiver>DlgLog</receiver>
+   <slot>AnalystLog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>320</x>
+     <y>90</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>145</x>
+     <y>83</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>treeViewWarnLog</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>DlgLog</receiver>
+   <slot>OnDBClickedWarnLogList(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>407</x>
+     <y>266</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>167</x>
+     <y>256</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnMergeLog</sender>
+   <signal>clicked()</signal>
+   <receiver>DlgLog</receiver>
+   <slot>MergeLog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>291</x>
+     <y>58</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>121</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>edtLogPath</sender>
+   <signal>editingFinished()</signal>
+   <receiver>DlgLog</receiver>
+   <slot>OnLogPathEditFinish()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>425</x>
+     <y>8</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>423</x>
+     <y>61</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnImportLog</sender>
+   <signal>clicked()</signal>
+   <receiver>DlgLog</receiver>
+   <slot>ImportLog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>210</x>
+     <y>71</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>205</x>
+     <y>78</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnDownLogByFileName</sender>
+   <signal>clicked()</signal>
+   <receiver>DlgLog</receiver>
+   <slot>DownLogByFileName()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>51</x>
+     <y>121</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>273</x>
+     <y>119</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>edtDownSpeed</sender>
+   <signal>editingFinished()</signal>
+   <receiver>DlgLog</receiver>
+   <slot>OnDownSpeedEditFinish()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>100</x>
+     <y>27</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>186</x>
+     <y>27</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbSvrGroup</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>DlgLog</receiver>
+   <slot>OnSvrGropuChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>35</x>
+     <y>40</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>106</x>
+     <y>188</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnClearTask</sender>
+   <signal>clicked()</signal>
+   <receiver>DlgLog</receiver>
+   <slot>OnClearTask()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>137</x>
+     <y>97</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>263</x>
+     <y>172</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnAddTask</sender>
+   <signal>clicked()</signal>
+   <receiver>DlgLog</receiver>
+   <slot>OnAddTask()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>57</x>
+     <y>102</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>188</x>
+     <y>157</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnDumpCmd</sender>
+   <signal>clicked()</signal>
+   <receiver>DlgLog</receiver>
+   <slot>OnBtnDumpCmd()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>112</x>
+     <y>124</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>219</x>
+     <y>156</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>DownTodayLog()</slot>
+  <slot>AnalystLog()</slot>
+  <slot>OnDBClickedWarnLogList(QModelIndex)</slot>
+  <slot>DownLogByDay()</slot>
+  <slot>MergeLog()</slot>
+  <slot>OnLogPathEditFinish()</slot>
+  <slot>ImportLog()</slot>
+  <slot>DownLogByFileName()</slot>
+  <slot>OnDownSpeedEditFinish()</slot>
+  <slot>OnSvrGropuChanged(QString)</slot>
+  <slot>OnClearTask()</slot>
+  <slot>OnAddTask()</slot>
+  <slot>OnBtnDumpCmd()</slot>
+ </slots>
+</ui>

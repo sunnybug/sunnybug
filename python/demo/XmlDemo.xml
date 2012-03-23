@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<logdata>
+<xs:schema id="logdata" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"><xs:element name="SUMMARY_INFO"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:element name="FILENAME" type="xs:string" minOccurs="0" /><xs:element name="PID" type="xs:integer" minOccurs="0" /><xs:element name="OS" minOccurs="0" maxOccurs="unbounded"><xs:complexType><xs:attribute name="ver" type="xs:string" /><xs:attribute name="sp" type="xs:string" /><xs:attribute name="name" type="xs:string" /></xs:complexType></xs:element><xs:element name="LEAKDIAG_SETTINGS" minOccurs="0" maxOccurs="unbounded"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:element name="ALLOCATOR" minOccurs="0" maxOccurs="unbounded"><xs:complexType><xs:attribute name="num" type="xs:integer" /><xs:attribute name="state" type="xs:integer" /></xs:complexType></xs:element></xs:sequence></xs:complexType></xs:element><xs:element name="MEMORY_INFO" minOccurs="0" maxOccurs="unbounded"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:element name="LEAKDIAG" minOccurs="0"  maxOccurs="unbounded"><xs:complexType><xs:attribute name="memusage" type="xs:double" /></xs:complexType></xs:element><xs:element name="GLOBALMEM" minOccurs="0" maxOccurs="unbounded"><xs:complexType><xs:attribute name="TotalPhys" type="xs:double" /><xs:attribute name="AvailPhys" type="xs:double" /><xs:attribute name="TotalPageFile" type="xs:double" /><xs:attribute name="AvailPageFile" type="xs:double" /><xs:attribute name="TotalVirtual" type="xs:double" /><xs:attribute name="AvailVirtual" type="xs:double" /><xs:attribute name="AvailExtendedVirtual" type="xs:double" /></xs:complexType></xs:element><xs:element name="PROCESSMEM" minOccurs="0" maxOccurs="unbounded"><xs:complexType><xs:attribute name="PeakVirtualSize" type="xs:double" /><xs:attribute name="VirtualSize" type="xs:double" /><xs:attribute name="PageFaultCount" type="xs:double" /><xs:attribute name="PeakWorkingSetSize" type="xs:double" /><xs:attribute name="WorkingSetSize" type="xs:double" /><xs:attribute name="QuotaPeakPagedPoolUsage" type="xs:double" /><xs:attribute name="QuotaPagedPoolUsage" type="xs:double" /><xs:attribute name="QuotaPeakNonPagedPoolUsage" type="xs:double" /><xs:attribute name="QuotaNonPagedPoolUsage" type="xs:double" /><xs:attribute name="PagefileUsage" type="xs:double" /><xs:attribute name="PeakPagefileUsage" type="xs:double" /></xs:complexType></xs:element></xs:sequence></xs:complexType></xs:element><xs:element name="MODULES" minOccurs="0" maxOccurs="unbounded"><xs:complexType><xs:sequence><xs:element name="MODULE_INFO" minOccurs="0" maxOccurs="unbounded"><xs:complexType><xs:attribute name="timedate" type="xs:string" /><xs:attribute name="base" type="xs:string" /><xs:attribute name="end" type="xs:string" /></xs:complexType></xs:element></xs:sequence></xs:complexType></xs:element></xs:sequence></xs:complexType></xs:element><xs:element name="LEAKS"><xs:complexType><xs:sequence><xs:element name="STACK" minOccurs="0" maxOccurs="unbounded"><xs:complexType><xs:sequence><xs:element name="STACKID" type="xs:string" minOccurs="0" msdata:Ordinal="1" /><xs:element name="STACKSTATS" minOccurs="0" maxOccurs="unbounded"><xs:complexType><xs:sequence><xs:element name="SIZESTAT" minOccurs="0" maxOccurs="unbounded"><xs:complexType><xs:attribute name="size" type="xs:double" /><xs:attribute name="numallocs" type="xs:double" /></xs:complexType></xs:element><xs:element name="HEAPSTAT" minOccurs="0" maxOccurs="unbounded"><xs:complexType><xs:attribute name="handle" type="xs:string" /><xs:attribute name="numallocs" type="xs:double" /></xs:complexType></xs:element><xs:element name="ASSOCIATED_STACKS" minOccurs="0" maxOccurs="unbounded"><xs:complexType><xs:attribute name="stackid" type="xs:string" /><xs:attribute name="type" type="xs:string" /><xs:attribute name="numallocs" type="xs:double" /><xs:attribute name="totalsize" type="xs:double" /></xs:complexType></xs:element></xs:sequence></xs:complexType></xs:element><xs:element name="FRAME" minOccurs="0" maxOccurs="unbounded"><xs:complexType><xs:attribute name="num" type="xs:integer" /><xs:attribute name="dll" type="xs:string" /><xs:attribute name="function" type="xs:string" /><xs:attribute name="offset" type="xs:string" /><xs:attribute name="filename" type="xs:string" /><xs:attribute name="line" type="xs:string" /><xs:attribute name="addr" type="xs:string" /></xs:complexType></xs:element></xs:sequence><xs:attribute name="numallocs" type="xs:double" /><xs:attribute name="size" type="xs:double" /><xs:attribute name="totalsize" type="xs:double" /></xs:complexType></xs:element></xs:sequence><xs:attribute name="ver" type="xs:string" /></xs:complexType><xs:key name="LEAKSKey1"><xs:selector xpath=".//STACK" /><xs:field xpath="STACKID" /></xs:key></xs:element></xs:schema>
+<LEAKS ver="1.25.28.2201">
+<STACK numallocs="01" size="0157" totalsize="0157">
+<STACKSTATS>
+<SIZESTAT size="0157" numallocs="01"/>
+<HEAPSTAT handle="170000" numallocs="01"/>
+</STACKSTATS>
+<FRAME num="0" dll="ole32.dll" function ="ComPs_NdrDllCanUnloadNow" offset="0xFA" filename="" line="" addr="0x769AD03B" />
+<FRAME num="1" dll="shell32.dll" function ="SHAlloc" offset="0x18" filename="" line="" addr="0x7D5BB228" />
+<FRAME num="2" dll="shell32.dll" function ="ILCloneFirst" offset="0x87" filename="" line="" addr="0x7D5BB59B" />
+<FRAME num="3" dll="shell32.dll" function ="ILCombine" offset="0x39" filename="" line="" addr="0x7D5BB5FE" />
+<FRAME num="4" dll="shell32.dll" function ="ILCombine" offset="0x83" filename="" line="" addr="0x7D5BB648" />
+<STACKID>042169A8</STACKID>
+</STACK>
+<STACK numallocs="01" size="080" totalsize="080">
+<STACKSTATS>
+<SIZESTAT size="080" numallocs="01"/>
+<HEAPSTAT handle="170000" numallocs="01"/>
+</STACKSTATS>
+<FRAME num="0" dll="ole32.dll" function ="IsValidInterface" offset="0x265" filename="" line="" addr="0x769AD69E" />
+<FRAME num="1" dll="oleaut32.dll" function ="VarBstrCat" offset="0xB2" filename="" line="" addr="0x7710AA17" />
+<FRAME num="2" dll="PyScripter.exe" function="" filename="" line="" addr="0x407743" offset="0x00007743" />
+<FRAME num="3" dll="PyScripter.exe" function="" filename="" line="" addr="0x8b2463" offset="0x004B2463" />
+<FRAME num="4" dll="PyScripter.exe" function="" filename="" line="" addr="0x94a61b" offset="0x0054A61B" />
+<STACKID>04218C48</STACKID>
+</STACK>
+<STACK numallocs="01" size="032" totalsize="032">
+<STACKSTATS>
+<SIZESTAT size="032" numallocs="01"/>
+<HEAPSTAT handle="170000" numallocs="01"/>
+</STACKSTATS>
+<FRAME num="0" dll="MSCTF.dll" function ="TF_GetInputScope" offset="0x24D3" filename="" line="" addr="0x746C13CB" />
+<FRAME num="1" dll="MSCTF.dll" function ="TF_GetInputScope" offset="0x69D" filename="" line="" addr="0x746BF595" />
+<FRAME num="2" dll="MSCTF.dll" function ="TF_CheckThreadInputIdle" offset="0x108E2" filename="" line="" addr="0x746B0257" />
+<FRAME num="3" dll="MSCTF.dll" function ="TF_CheckThreadInputIdle" offset="0x10959" filename="" line="" addr="0x746B02CE" />
+<FRAME num="4" dll="MSCTF.dll" function ="TF_CreateCicLoadMutex" offset="0x11BF" filename="" line="" addr="0x746981AA" />
+<STACKID>04214548</STACKID>
+</STACK>
+<STACK numallocs="01" size="01300" totalsize="01300">
+<STACKSTATS>
+<SIZESTAT size="01300" numallocs="01"/>
+<HEAPSTAT handle="170000" numallocs="01"/>
+</STACKSTATS>
+<FRAME num="0" dll="USER32.dll" function ="CreateMenu" offset="0x37" filename="" line="" addr="0x77D2F33D" />
+<FRAME num="1" dll="USER32.dll" function ="PeekMessageA" offset="0x177" filename="" line="" addr="0x77D2A4B7" />
+<FRAME num="2" dll="USER32.dll" function ="EnumWindows" offset="0x16" filename="" line="" addr="0x77D2A5C4" />
+<FRAME num="3" dll="PyScripter.exe" function="" filename="" line="" addr="0x50b22a" offset="0x0010B22A" />
+<FRAME num="4" dll="PyScripter.exe" function="" filename="" line="" addr="0x452e02" offset="0x00052E02" />
+<STACKID>04218D28</STACKID>
+</STACK>
+</LEAKS>
+<SUMMARY_INFO>
+<FILENAME>F:\Python\tool\PyScripter\PyScripter.exe</FILENAME>
+<PID>2572</PID>
+<OS ver="5.1.2600" sp="3.0" name="Windows XP Professional Service Pack 3" />
+<LEAKDIAG_SETTINGS>
+<ALLOCATOR num="2" state="1" />
+</LEAKDIAG_SETTINGS>
+<MEMORY_INFO>
+<LEAKDIAG memusage="1524192" />
+<GLOBALMEM MemoryLoad="39" TotalPhys="2146742272" AvailPhys="0" TotalPageFile="1301508096" AvailPageFile="0" TotalVirtual="4131012608" AvailVirtual="0" AvailExtendedVirtual="3365433344"/>
+<PROCESSMEM PeakVirtualSize="221155328" VirtualSize="221155328" PageFaultCount="31912" PeakWorkingSetSize="84066304" WorkingSetSize="84066304" QuotaPeakPagedPoolUsage="209828" QuotaPagedPoolUsage="208612" QuotaPeakNonPagedPoolUsage="16240" PagefileUsage="71749632" PeakPagefileUsage="71749632" />
+</MEMORY_INFO>
+<MODULES>
+<MODULE_INFO name="Normaliz.dll" timestamp="0x44A3EC46" base="0x3B0000" end="0x3B9000" />
+<MODULE_INFO name="PyScripter.exe" timestamp="0x4CAF8FB0" base="0x400000" end="0xC44000" />
+<MODULE_INFO name="safemon.dll" timestamp="0x4C931B22" base="0x19A0000" end="0x1A30000" />
+<MODULE_INFO name="TortoiseSVN.dll" timestamp="0x4ADCB9B8" base="0x1EE0000" end="0x1FA8000" />
+<MODULE_INFO name="intl3_tsvn.dll" timestamp="0x4745506D" base="0x1FF0000" end="0x2002000" />
+<MODULE_INFO name="PhoneBrowser_chi-sc.nlr" timestamp="0x49B799D3" base="0x3B70000" end="0x3B76000" />
+<MODULE_INFO name="xpsp2res.dll" timestamp="0x4802454C" base="0x3BC0000" end="0x4109000" />
+<MODULE_INFO name="dbghelp.dll" timestamp="0x3CF80D47" base="0x4250000" end="0x4305000" />
+<MODULE_INFO name="PhoneBrowser.dll" timestamp="0x4A1A5D45" base="0x4410000" end="0x44AA000" />
+<MODULE_INFO name="NGSCM.DLL" timestamp="0x4A1E4DEF" base="0x44B0000" end="0x4594000" />
+<MODULE_INFO name="PhoneBrowser_Nokia.ngr" timestamp="0x48B241B6" base="0x46A0000" end="0x472E000" />
+<MODULE_INFO name="symsrv.dll" timestamp="0x3C687244" base="0x4830000" end="0x483D000" />
+<MODULE_INFO name="TortoiseStub.dll" timestamp="0x4ADCB8D7" base="0x5940000" end="0x594E000" />
+<MODULE_INFO name="TortoiseOverlays.dll" timestamp="0x4A844589" base="0x5960000" end="0x5977000" />
+<MODULE_INFO name="Audiodev.dll" timestamp="0x4537115E" base="0x7160000" end="0x71A6000" />
+<MODULE_INFO name="guard32.dll" timestamp="0x4C0545CD" base="0x10000000" end="0x10047000" />
+<MODULE_INFO name="PortableDeviceApi.dll" timestamp="0x45371173" base="0x10930000" end="0x10979000" />
+<MODULE_INFO name="WMASF.DLL" timestamp="0x4537116B" base="0x11C70000" end="0x11CA9000" />
+<MODULE_INFO name="WMVCore.DLL" timestamp="0x453711A2" base="0x15110000" end="0x1536A000" />
+<MODULE_INFO name="wpdshext.dll" timestamp="0x453711B4" base="0x16210000" end="0x1648E000" />
+<MODULE_INFO name="python31.dll" timestamp="0x4BA55D7B" base="0x1E000000" end="0x1E218000" />
+<MODULE_INFO name="odbcint.dll" timestamp="0x408FE32A" base="0x1F840000" end="0x1F857000" />
+<MODULE_INFO name="wininet.dll" timestamp="0x4C234E2C" base="0x3E410000" end="0x3E4F6000" />
+<MODULE_INFO name="iertutil.dll" timestamp="0x4C234E2D" base="0x3EAB0000" end="0x3EC98000" />
+<MODULE_INFO name="ieframe.dll" timestamp="0x4C234E2A" base="0x3ECA0000" end="0x3F734000" />
+<MODULE_INFO name="urlmon.dll" timestamp="0x4C234E2C" base="0x43CE0000" end="0x43E13000" />
+<MODULE_INFO name="fltlib.dll" timestamp="0x4802BD89" base="0x4AA90000" end="0x4AA98000" />
+<MODULE_INFO name="gdiplus.dll" timestamp="0x4A841B48" base="0x4AE90000" end="0x4B03B000" />
+<MODULE_INFO name="wiashext.dll" timestamp="0x4802BDD5" base="0x5A540000" end="0x5A5D0000" />
+<MODULE_INFO name="uxtheme.dll" timestamp="0x4802BDC0" base="0x5ADC0000" end="0x5ADF7000" />
+<MODULE_INFO name="olepro32.dll" timestamp="0x4802BDC4" base="0x5EFE0000" end="0x5EFF7000" />
+<MODULE_INFO name="NETAPI32.dll" timestamp="0x48F61BC7" base="0x5FDD0000" end="0x5FE25000" />
+<MODULE_INFO name="hnetcfg.dll" timestamp="0x4802BD8D" base="0x60FD0000" end="0x61025000" />
+<MODULE_INFO name="oleacc.dll" timestamp="0x4ACE602B" base="0x61880000" end="0x618BA000" />
+<MODULE_INFO name="LPK.DLL" timestamp="0x4802BD9F" base="0x62C20000" end="0x62C29000" />
+<MODULE_INFO name="inject.dll" timestamp="0x3D650E80" base="0x67A10000" end="0x67A36000" />
+<MODULE_INFO name="HHCtrlui.dll" timestamp="0x3B901701" base="0x68BF0000" end="0x68C08000" />
+<MODULE_INFO name="psapi.dll" timestamp="0x38439A0A" base="0x690A0000" end="0x690AB000" />
+<MODULE_INFO name="libaprutil_tsvn.dll" timestamp="0x4ADCB659" base="0x6EE60000" end="0x6EE8F000" />
+<MODULE_INFO name="libapr_tsvn.dll" timestamp="0x4ADCB63E" base="0x6EEC0000" end="0x6EEE2000" />
+<MODULE_INFO name="MSWSOCK.dll" timestamp="0x485BEC2C" base="0x719C0000" end="0x719FE000" />
+<MODULE_INFO name="wshtcpip.dll" timestamp="0x4802BE12" base="0x71A00000" end="0x71A08000" />
+<MODULE_INFO name="WS2HELP.dll" timestamp="0x4802BE09" base="0x71A10000" end="0x71A18000" />
+<MODULE_INFO name="WS2_32.dll" timestamp="0x4802BE08" base="0x71A20000" end="0x71A37000" />
+<MODULE_INFO name="mpr.dll" timestamp="0x4802BDBC" base="0x71A90000" end="0x71AA2000" />
+<MODULE_INFO name="SAMLIB.dll" timestamp="0x4802BDAC" base="0x71B70000" end="0x71B83000" />
+<MODULE_INFO name="ntlanman.dll" timestamp="0x4802BDC6" base="0x71B90000" end="0x71B9E000" />
+<MODULE_INFO name="NETRAP.dll" timestamp="0x4802BDAD" base="0x71C00000" end="0x71C07000" />
+<MODULE_INFO name="NETUI1.dll" timestamp="0x4802BDB1" base="0x71C10000" end="0x71C50000" />
+<MODULE_INFO name="NETUI0.dll" timestamp="0x4802BDB0" base="0x71C50000" end="0x71C65000" />
+<MODULE_INFO name="winspool.drv" timestamp="0x4802BDCA" base="0x72F70000" end="0x72F96000" />
+<MODULE_INFO name="ODBC32.dll" timestamp="0x4802BDAA" base="0x73540000" end="0x7357D000" />
+<MODULE_INFO name="msctfime.ime" timestamp="0x49A7726D" base="0x73640000" end="0x7366E000" />
+<MODULE_INFO name="shgina.dll" timestamp="0x4802BDB8" base="0x73CE0000" end="0x73CF3000" />
+<MODULE_INFO name="USP10.dll" timestamp="0x4BC88421" base="0x73FA0000" end="0x7400B000" />
+<MODULE_INFO name="MSCTF.dll" timestamp="0x4802BDE3" base="0x74680000" end="0x746CC000" />
+<MODULE_INFO name="RICHED20.DLL" timestamp="0x4802BDAB" base="0x74D90000" end="0x74DFD000" />
+<MODULE_INFO name="CRYPTUI.dll" timestamp="0x4802BDB6" base="0x75430000" end="0x754A1000" />
+<MODULE_INFO name="MSGINA.dll" timestamp="0x4802BE00" base="0x758D0000" end="0x759C1000" />
+<MODULE_INFO name="Userenv.dll" timestamp="0x4802BDBE" base="0x759D0000" end="0x75A7F000" />
+<MODULE_INFO name="drprov.dll" timestamp="0x4802BDBE" base="0x75ED0000" end="0x75ED7000" />
+<MODULE_INFO name="davclnt.dll" timestamp="0x4802BD7E" base="0x75EE0000" end="0x75EEA000" />
+<MODULE_INFO name="browseui.dll" timestamp="0x4802BD7B" base="0x75EF0000" end="0x75FED000" />
+<MODULE_INFO name="MSVCP60.dll" timestamp="0x4802BE3E" base="0x75FF0000" end="0x76055000" />
+<MODULE_INFO name="SETUPAPI.dll" timestamp="0x4802BDB0" base="0x76060000" end="0x761B6000" />
+<MODULE_INFO name="WINSTA.dll" timestamp="0x4802BDCD" base="0x762D0000" end="0x762E0000" />
+<MODULE_INFO name="msimg32.dll" timestamp="0x4802BE16" base="0x762F0000" end="0x762F5000" />
+<MODULE_INFO name="imm32.dll" timestamp="0x4802BDB3" base="0x76300000" end="0x7631D000" />
+<MODULE_INFO name="comdlg32.dll" timestamp="0x4802BDA2" base="0x76320000" end="0x76367000" />
+<MODULE_INFO name="CSCDLL.dll" timestamp="0x4802BDB7" base="0x76570000" end="0x7658C000" />
+<MODULE_INFO name="cscui.dll" timestamp="0x4802BDB8" base="0x76590000" end="0x765DE000" />
+<MODULE_INFO name="CRYPT32.dll" timestamp="0x4802BDB0" base="0x765E0000" end="0x76673000" />
+<MODULE_INFO name="SHFOLDER.dll" timestamp="0x4802BDB7" base="0x76750000" end="0x76759000" />
+<MODULE_INFO name="cryptdll.dll" timestamp="0x4802BDB2" base="0x76760000" end="0x7676C000" />
+<MODULE_INFO name="ntshrui.dll" timestamp="0x4802BDCF" base="0x76960000" end="0x76984000" />
+<MODULE_INFO name="ole32.dll" timestamp="0x4802BDBC" base="0x76990000" end="0x76ACD000" />
+<MODULE_INFO name="ATL.DLL" timestamp="0x4A60CABA" base="0x76AF0000" end="0x76B01000" />
+<MODULE_INFO name="winmm.dll" timestamp="0x4802BDE1" base="0x76B10000" end="0x76B3A000" />
+<MODULE_INFO name="PSAPI.DLL" timestamp="0x4802BDAB" base="0x76BC0000" end="0x76BCB000" />
+<MODULE_INFO name="WINTRUST.dll" timestamp="0x4B33115B" base="0x76C00000" end="0x76C2E000" />
+<MODULE_INFO name="IMAGEHLP.dll" timestamp="0x4802BD9A" base="0x76C60000" end="0x76C88000" />
+<MODULE_INFO name="iphlpapi.dll" timestamp="0x4802BD8B" base="0x76D30000" end="0x76D48000" />
+<MODULE_INFO name="apphelp.dll" timestamp="0x4802BD96" base="0x76D70000" end="0x76D92000" />
+<MODULE_INFO name="MSASN1.dll" timestamp="0x4AA180AB" base="0x76DB0000" end="0x76DC2000" />
+<MODULE_INFO name="rtutils.dll" timestamp="0x4802BDB7" base="0x76E50000" end="0x76E5E000" />
+<MODULE_INFO name="rasman.dll" timestamp="0x4802BDAC" base="0x76E60000" end="0x76E72000" />
+<MODULE_INFO name="TAPI32.dll" timestamp="0x4802BDB9" base="0x76E80000" end="0x76EAF000" />
+<MODULE_INFO name="RASAPI32.dll" timestamp="0x4802BDA8" base="0x76EB0000" end="0x76EEC000" />
+<MODULE_INFO name="DNSAPI.dll" timestamp="0x485BEC2B" base="0x76EF0000" end="0x76F17000" />
+<MODULE_INFO name="WLDAP32.dll" timestamp="0x4802BDD3" base="0x76F30000" end="0x76F5C000" />
+<MODULE_INFO name="rasadhlp.dll" timestamp="0x4802BDA7" base="0x76F90000" end="0x76F96000" />
+<MODULE_INFO name="CLBCATQ.DLL" timestamp="0x4802BD92" base="0x76FA0000" end="0x7701F000" />
+<MODULE_INFO name="COMRes.dll" timestamp="0x4802BDA7" base="0x77020000" end="0x770BA000" />
+<MODULE_INFO name="oleaut32.dll" timestamp="0x4802BDBD" base="0x770F0000" end="0x7717B000" />
+<MODULE_INFO name="comctl32.dll" timestamp="0x4802BD6C" base="0x77180000" end="0x77283000" />
+<MODULE_INFO name="VERSION.dll" timestamp="0x4802BDBF" base="0x77BD0000" end="0x77BD8000" />
+<MODULE_INFO name="msvcrt.dll" timestamp="0x4802BE3F" base="0x77BE0000" end="0x77C38000" />
+<MODULE_INFO name="msv1_0.dll" timestamp="0x4AAA5BDD" base="0x77C40000" end="0x77C65000" />
+<MODULE_INFO name="USER32.dll" timestamp="0x4802BDBD" base="0x77D10000" end="0x77DA0000" />
+<MODULE_INFO name="ADVAPI32.dll" timestamp="0x49900AFA" base="0x77DA0000" end="0x77E49000" />
+<MODULE_INFO name="RPCRT4.dll" timestamp="0x4C48686F" base="0x77E50000" end="0x77EE3000" />
+<MODULE_INFO name="GDI32.dll" timestamp="0x49007030" base="0x77EF0000" end="0x77F39000" />
+<MODULE_INFO name="SHLWAPI.dll" timestamp="0x4B1E1B15" base="0x77F40000" end="0x77FB6000" />
+<MODULE_INFO name="Secur32.dll" timestamp="0x4A433452" base="0x77FC0000" end="0x77FD1000" />
+<MODULE_INFO name="MSVCR80.dll" timestamp="0x4A594C79" base="0x78130000" end="0x781CB000" />
+<MODULE_INFO name="MSVCP90.dll" timestamp="0x4B7A2274" base="0x78480000" end="0x7850E000" />
+<MODULE_INFO name="MSVCR90.dll" timestamp="0x4B7A226F" base="0x78520000" end="0x785C3000" />
+<MODULE_INFO name="MSVCP80.dll" timestamp="0x4A594CD0" base="0x7C420000" end="0x7C4A7000" />
+<MODULE_INFO name="kernel32.dll" timestamp="0x49C4F481" base="0x7C800000" end="0x7C91E000" />
+<MODULE_INFO name="ntdll.dll" timestamp="0x49900AFA" base="0x7C920000" end="0x7C9B6000" />
+<MODULE_INFO name="shell32.dll" timestamp="0x4C4E8159" base="0x7D590000" end="0x7DD84000" />
+<MODULE_INFO name="shdocvw.dll" timestamp="0x4B30538B" base="0x7E550000" end="0x7E6C3000" />
+<MODULE_INFO name="HHCtrl.ocx" timestamp="0x4802BD86" base="0x7E6D0000" end="0x7E759000" />
+</MODULES>
+</SUMMARY_INFO>
+</logdata>
