@@ -1,27 +1,4 @@
-#!/usr/bin/env python
-
-############################################################################
-##
-## Copyright (C) 2005-2005 Trolltech AS. All rights reserved.
-##
-## This file is part of the example classes of the Qt Toolkit.
-##
-## This file may be used under the terms of the GNU General Public
-## License version 2.0 as published by the Free Software Foundation
-## and appearing in the file LICENSE.GPL included in the packaging of
-## this file.  Please review the following information to ensure GNU
-## General Public Licensing requirements will be met:
-## http://www.trolltech.com/products/qt/opensource.html
-##
-## If you are unsure which license is appropriate for your use, please
-## review the following information:
-## http://www.trolltech.com/products/qt/licensing.html or contact the
-## sales department at sales@trolltech.com.
-##
-## This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
-## WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
-##
-############################################################################
+#coding=utf-8
 
 from PyQt4 import QtCore, QtGui
 
@@ -62,13 +39,39 @@ class TreeItem(object):
 		return 0
 
 
-class TreeModel(QtCore.QAbstractItemModel):
-	def __init__(self, data, parent=None):
-		super(TreeModel, self).__init__(parent)
+class SvrCheckTree(QtCore.QAbstractItemModel):
+	def __init__(self,  parent=None):
+		super(SvrCheckTree, self).__init__(parent)
+		self.rootItem = TreeItem(["游服"])
+		self.checkLisk = []
 
-		self.rootItem = TreeItem(("Title", "Summary"))
-		self.setupModelData(data.split('\n'), self.rootItem)
-		self.checkLisk = [] 	#保存被选中的checkbox信息
+	def GetCount(self):
+		return self.rootItem.childCount()
+		
+	def IsChecked(self,  itemdata0):
+		for x in self.checkLisk: 
+			if str(x.internalPointer().itemData[0]) == itemdata0:
+				return True
+		return False
+		
+	def SetCheck(self,  index,  chk):
+		for x in self.checkLisk: 
+			if x == index: 
+				self.checkLisk.remove(x)
+				break
+		if chk:		
+			self.checkLisk.append(index)
+		
+	def ReverseCheck(self,  index):
+		bOld = False
+		for x in self.checkLisk: 
+			if x == index: 
+				self.checkLisk.remove(x)
+				bOld = True
+				break
+		if not bOld:	
+			self.checkLisk.append(index)
+		return True
 
 	def columnCount(self, parent):
 		if parent.isValid():
@@ -83,10 +86,10 @@ class TreeModel(QtCore.QAbstractItemModel):
 		item = index.internalPointer()  
 
 		if role == QtCore.Qt.CheckStateRole:          #被选中项是checkbox  
-			if item.parent() == self.rootItem:        #如果是根的话，直接返回  
-				return None  
-			if item.childCount()>0:                   #如果是有子项的话，直接返回，这个可以根据需要调整。当需要成组选择的时候，必须保留  
-				return None  
+#			if item.parent() == self.rootItem:        #如果是根的话，直接返回  
+#				return None  
+#			if item.childCount()>0:                   #如果是有子项的话，直接返回，这个可以根据需要调整。当需要成组选择的时候，必须保留  
+#				return None  
 			if index.column()==0:  
 				for x in self.checkLisk:              #检查该项是否在checkList中，如果在将其设为选中状态  
 					if x == index:  
@@ -149,8 +152,11 @@ class TreeModel(QtCore.QAbstractItemModel):
 
 		return parentItem.childCount()
 
-	def setupModelData(self, lines, parent):
-		parents = [parent]
+	def AddItem(self,  columnData):
+		self.rootItem.appendChild(TreeItem(columnData, self.rootItem))
+
+	def setupModelData(self, lines):
+		parents = [self.rootItem]
 		indentations = [0]
 
 		number = 0
@@ -187,6 +193,7 @@ class TreeModel(QtCore.QAbstractItemModel):
 			number += 1
 
 
+
 if __name__ == '__main__':
 
 	import sys
@@ -195,7 +202,7 @@ if __name__ == '__main__':
 
 	f = QtCore.QFile('default.txt')
 	f.open(QtCore.QIODevice.ReadOnly)
-	model = TreeModel(f.readAll())
+	model = SvrCheckTree()
 	f.close()
 
 	view = QtGui.QTreeView()

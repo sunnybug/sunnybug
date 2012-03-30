@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric5 project file for project xPyQTDemo -->
-<!-- Saved: 2012-01-06, 18:57:02 -->
+<!-- Saved: 2012-03-28, 18:41:45 -->
 <!-- Copyright (C) 2012 ,  -->
 <Project version="5.1">
   <Language></Language>
@@ -14,13 +14,14 @@
   <Email></Email>
   <Sources>
     <Source>cfg.py</Source>
-    <Source>ui/Ui_DlgLog.py</Source>
     <Source>LogDlgThread.py</Source>
     <Source>bin/sunnybug.xml</Source>
     <Source>xLogDlg.py</Source>
     <Source>xAnalystLog.py</Source>
     <Source>xTaskMgr.py</Source>
     <Source>bin/run.py</Source>
+    <Source>ui/Ui_DlgLog.py</Source>
+    <Source>SvrCheckTree.pyw</Source>
   </Sources>
   <Forms>
     <Form>ui/DlgLog.ui</Form>
@@ -144,15 +145,15 @@
     </VcsOtherData>
   </Vcs>
   <FiletypeAssociations>
-    <FiletypeAssociation pattern="*.pyw3" type="SOURCES"/>
-    <FiletypeAssociation pattern="*.ui" type="FORMS"/>
     <FiletypeAssociation pattern="*.idl" type="INTERFACES"/>
-    <FiletypeAssociation pattern="*.qm" type="TRANSLATIONS"/>
     <FiletypeAssociation pattern="*.py" type="SOURCES"/>
-    <FiletypeAssociation pattern="*.qrc" type="RESOURCES"/>
-    <FiletypeAssociation pattern="*.pyw" type="SOURCES"/>
-    <FiletypeAssociation pattern="*.ui.h" type="FORMS"/>
-    <FiletypeAssociation pattern="*.ts" type="TRANSLATIONS"/>
     <FiletypeAssociation pattern="*.py3" type="SOURCES"/>
+    <FiletypeAssociation pattern="*.pyw" type="SOURCES"/>
+    <FiletypeAssociation pattern="*.pyw3" type="SOURCES"/>
+    <FiletypeAssociation pattern="*.qm" type="TRANSLATIONS"/>
+    <FiletypeAssociation pattern="*.qrc" type="RESOURCES"/>
+    <FiletypeAssociation pattern="*.ts" type="TRANSLATIONS"/>
+    <FiletypeAssociation pattern="*.ui" type="FORMS"/>
+    <FiletypeAssociation pattern="*.ui.h" type="FORMS"/>
   </FiletypeAssociations>
 </Project>

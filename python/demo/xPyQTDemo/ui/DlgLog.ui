@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>793</width>
-    <height>700</height>
+    <height>726</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>440</y>
+     <y>480</y>
      <width>791</width>
      <height>251</height>
     </rect>
@@ -61,8 +61,8 @@
   <widget class="QTreeView" name="treeViewWarnLog">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>280</y>
+     <x>290</x>
+     <y>310</y>
      <width>491</width>
      <height>161</height>
     </rect>
@@ -345,6 +345,32 @@
     <bool>false</bool>
    </property>
   </widget>
+  <widget class="QTreeView" name="tvSvr">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>160</y>
+     <width>151</width>
+     <height>321</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="chkAllGroup">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>120</y>
+     <width>72</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>AllGroup</string>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections>
@@ -461,22 +487,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>cbSvrGroup</sender>
-   <signal>currentIndexChanged(QString)</signal>
-   <receiver>DlgLog</receiver>
-   <slot>OnSvrGropuChanged(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>35</x>
-     <y>40</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>106</x>
-     <y>188</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>btnClearTask</sender>
    <signal>clicked()</signal>
    <receiver>DlgLog</receiver>
@@ -524,6 +534,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>tvSvr</sender>
+   <signal>clicked(QModelIndex)</signal>
+   <receiver>DlgLog</receiver>
+   <slot>OnSvrTreeClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>65</x>
+     <y>349</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>171</x>
+     <y>345</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>DownTodayLog()</slot>
@@ -539,5 +565,7 @@
   <slot>OnClearTask()</slot>
   <slot>OnAddTask()</slot>
   <slot>OnBtnDumpCmd()</slot>
+  <slot>OnSvrTreeClicked()</slot>
+  <slot>OnBtnAllGroup()</slot>
  </slots>
 </ui>
