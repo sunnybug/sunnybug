@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'D:\doc\gitpub\github_sunnybug\python\demo\xPyQTDemo\ui\DlgLog.ui'
 #
-# Created: Sun Apr 01 14:31:35 2012
+# Created: Sun Apr 01 15:11:35 2012
 #      by: PyQt4 UI code generator 4.7.7
 #
 # WARNING! All changes made in this file will be lost!
@@ -76,9 +76,6 @@ class Ui_DlgLog(object):
         self.label_4 = QtGui.QLabel(DlgLog)
         self.label_4.setGeometry(QtCore.QRect(0, 70, 71, 16))
         self.label_4.setObjectName(_fromUtf8("label_4"))
-        self.cbSvrGroup = QtGui.QComboBox(DlgLog)
-        self.cbSvrGroup.setGeometry(QtCore.QRect(0, 30, 101, 22))
-        self.cbSvrGroup.setObjectName(_fromUtf8("cbSvrGroup"))
         self.chkFuzzy = QtGui.QCheckBox(DlgLog)
         self.chkFuzzy.setGeometry(QtCore.QRect(320, 70, 72, 17))
         self.chkFuzzy.setChecked(True)

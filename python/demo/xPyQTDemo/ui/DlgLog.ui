@@ -224,16 +224,6 @@
     <string>文件名</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="cbSvrGroup">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>30</y>
-     <width>101</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QCheckBox" name="chkFuzzy">
    <property name="geometry">
     <rect>

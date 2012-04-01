@@ -191,10 +191,7 @@ class LogDlg(QtGui.QMainWindow):
 		self.chkAllSvr.setText(QtGui.QApplication.translate("DlgLog", 'All', None, QtGui.QApplication.UnicodeUTF8))
 		self.chkAllSvr.setChecked(True)
 		self.chkAllSvr.stateChanged[int].connect(self.chkAllSvrStateChanged)
-
-		for svr in g_lstFtpGroup:
-			self.ui.cbSvrGroup.addItem(svr[FIELD_FTPSVR_NAME])
-		self.ui.cbSvrGroup.setCurrentIndex(0)
+		self.DrawSvrGroupList()
 
 		##########
 		#操作界面的信号槽
@@ -347,47 +344,60 @@ class LogDlg(QtGui.QMainWindow):
 		for btn in range(0, self.modelSvrGroup.GetCount()):
 			self.modelSvrGroup.SetCheck(self.modelSvrGroup.index(btn,  0,  self.ui.tvSvr.rootIndex() ),  nState==2)
 		
-	def RedrawSvrList(self):
-		#clear
-		for btn in self.svrButtonGroup.buttons():
-			self.svrButtonGroup.removeButton(btn)
-
-		while self.ui.horizontalLayout.count() > 0:
-			item = self.ui.horizontalLayout.itemAt(0)
-			self.ui.horizontalLayout.removeItem(item)
-
+#	def RedrawSvrList(self):
+#		#clear
+#		for btn in self.svrButtonGroup.buttons():
+#			self.svrButtonGroup.removeButton(btn)
+#
+#		while self.ui.horizontalLayout.count() > 0:
+#			item = self.ui.horizontalLayout.itemAt(0)
+#			self.ui.horizontalLayout.removeItem(item)
+#
+#		self.ui.horizontalLayout.addWidget(self.chkAllSvr)
+#		self.chkAllSvr.setChecked(True)
+#
+#		lstSvrLst = self.GetSvrList(False)
+#		for  svr in lstSvrLst[FIELD_FTPSVR_LIST]:
+#			check = QtGui.QCheckBox(self.ui.horizontalLayoutWidget)
+#			self.ui.horizontalLayout.addWidget(check)
+#			check.setText(QtGui.QApplication.translate("DlgLog", svr[FTPSVR_FIELD_NAME], None, QtGui.QApplication.UnicodeUTF8))
+#			check.setChecked(True)
+#			self.svrButtonGroup.addButton(check)
+			
+	def DrawSvrGroupList(self):
+		#self.ui.horizontalLayout.removeWidget(self.chkAllSvr)
 		self.ui.horizontalLayout.addWidget(self.chkAllSvr)
 		self.chkAllSvr.setChecked(True)
 
-		lstSvrLst = self.GetSvrList(False)
-		for  svr in lstSvrLst[FIELD_FTPSVR_LIST]:
+		lstSvrLst = ['HS','LS','DB','GS1','GS2','GS3','GS4','GS5','GS6']
+		for  svr in lstSvrLst:
 			check = QtGui.QCheckBox(self.ui.horizontalLayoutWidget)
 			self.ui.horizontalLayout.addWidget(check)
-			check.setText(QtGui.QApplication.translate("DlgLog", svr[FTPSVR_FIELD_NAME], None, QtGui.QApplication.UnicodeUTF8))
+			check.setText(QtGui.QApplication.translate("DlgLog", svr, None, QtGui.QApplication.UnicodeUTF8))
 			check.setChecked(True)
 			self.svrButtonGroup.addButton(check)
-
-	def GetSvrList(self, bGetSelected):
-		'''返回等待处理的服务器名列表,类型同g_lstFtpGroup'''
-		lstSvrLst =[]
-		#根据区名取该区所有服务器
-		strSvrGroupName = self.ui.cbSvrGroup.currentText()
-		for ftpGroup in g_lstFtpGroup:
-			if ftpGroup[FIELD_FTPSVR_NAME] == strSvrGroupName:
-				lstSvrLst = copy.deepcopy(ftpGroup)
-				break
-
-		#哪些服务器被选择
-		if bGetSelected:        
-			for btn in self.svrButtonGroup.buttons():
-				if not btn.isChecked():
-					idx = 0
-					for i in lstSvrLst[FIELD_FTPSVR_LIST]:
-						if i[FTPSVR_FIELD_NAME] == btn.text():
-							lstSvrLst[FIELD_FTPSVR_LIST].remove(i)
-							break
-						idx+=1
-		return lstSvrLst
+			
+#	def GetSvrList(self, bGetSelected):
+#		'''返回等待处理的服务器名列表,类型同g_lstFtpGroup'''
+#		lstSvrLst =[]
+#		#根据区名取该区所有服务器
+#		strSvrGroupName = self.ui.cbSvrGroup.currentText()
+#		for ftpGroup in g_lstFtpGroup:
+#			if ftpGroup[FIELD_FTPSVR_NAME] == strSvrGroupName:
+#				lstSvrLst = copy.deepcopy(ftpGroup)
+#				break
+#
+#		#哪些服务器被选择
+#		if bGetSelected:        
+#			for btn in self.svrButtonGroup.buttons():
+#				if not btn.isChecked():
+#					idx = 0
+#					for i in lstSvrLst[FIELD_FTPSVR_LIST]:
+#						if i[FTPSVR_FIELD_NAME] == btn.text():
+#							lstSvrLst[FIELD_FTPSVR_LIST].remove(i)
+#							break
+#						idx+=1
+#		return lstSvrLst
 		
 	def GetSvrListFromTreeView(self):
 		'''返回等待处理的服务器名列表,类型同g_lstFtpGroup'''
@@ -396,7 +406,7 @@ class LogDlg(QtGui.QMainWindow):
 		#从配置中读取被选中组的所有服务器
 		for ftpGroup in g_lstFtpGroup:
 			if self.modelSvrGroup.IsChecked(ftpGroup[FIELD_FTPSVR_NAME]):
-				lstSvrLst += [ftpGroup]
+				lstSvrLst += [copy.deepcopy(ftpGroup)]
 		
 		#哪些服务器类型被选择
 		for btn in self.svrButtonGroup.buttons():
