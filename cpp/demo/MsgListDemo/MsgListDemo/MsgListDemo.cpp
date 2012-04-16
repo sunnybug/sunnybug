@@ -9,11 +9,12 @@
 #include <assert.h>
 #include <xLockFreeQ.h>
 #include <xMutexMsgList.h>
+#include <slab.h>
 
 using namespace std;
-//#define _MSGPTR
+//#define _MSGPTR		//消息队列管理的是指针
 //#define _MSG_SECOND_MALLOC
-#define MSG_SIZE 100
+#define MSG_SIZE 2048
 
 //////////////////////////////////////////////////////////////////////////
 //type
@@ -43,7 +44,7 @@ struct xMsgSecondNew
 		info = new char[MSG_SIZE];
 		memcpy(info, r.info, MSG_SIZE);
 		return *this;
-	
+
 	}
 };
 
@@ -64,18 +65,20 @@ struct xMsgStack
 		return *this;
 	}
 };
+
 #ifdef _MSG_SECOND_MALLOC
 typedef xMsgSecondNew xMsg;
 #else
 typedef xMsgStack xMsg;
 #endif
 
+typedef xMutexMsgList<xMsg> xMsgQueue;
 
-#ifdef _MSGPTR
-typedef MSQueue<xMsg*> xMsgQueue;
-#else
-typedef MSQueue<xMsg> xMsgQueue;
-#endif // _MSGPTR
+// #ifdef _MSGPTR
+// typedef MSQueue<xMsg*> xMsgQueue;
+// #else
+// typedef xDoubleLockList<xMsg> xMsgQueue;
+// #endif // _MSGPTR
 
 //////////////////////////////////////////////////////////////////////////
 //var
@@ -84,9 +87,9 @@ bool g_bRun = true;
 bool g_bConsumerRun = true;
 const int nProductIDOffset = 100000000;
 const char* MSG_HEAD = "消息0123456789012345678901234567890123456789";
-const int nProductMsgCountPerThread = 1000000;
-const int nProductThreadCount = 5;
-const int nStaticMsgCount = 10000000;
+const int nProductMsgCountPerThread = 10000000;
+const int nProductThreadCount = 1;
+const int nStaticMsgCount = 1000000;
 volatile LONG g_nMsgCount = 0;
 
 //////////////////////////////////////////////////////////////////////////
@@ -103,7 +106,7 @@ static unsigned __stdcall ProducterThread(void* lparam)
 {
 	ThreadInfo* pInfo = (ThreadInfo*)lparam;
 	PrintInfo("Producter[%d] begin", pInfo->id);
-	
+
 	//产生消息
 	int nMsgID = pInfo->id*nProductIDOffset;
 	int nMsgCount = 0;
@@ -112,13 +115,18 @@ static unsigned __stdcall ProducterThread(void* lparam)
 	while(g_bRun && nMsgCount<pInfo->nProductMsgCount)
 	{
 		++ nMsgCount;
+// 		if(nMsgCount % nStaticMsgCount == 0)
+// 		{
+// 			//统计下时间
+// 			DWORD dwEnd = ::GetTickCount();
+// 			//PrintInfo("Producter[%d] add msg count:%d %uMS", pInfo->id, nStaticMsgCount, dwEnd-dwStart);
+// 			dwStart = dwEnd;
+// 			Sleep(5000);
+// 		}
+
 		if(nMsgCount % nStaticMsgCount == 0)
 		{
-			//统计下时间
-			DWORD dwEnd = ::GetTickCount();
-			//PrintInfo("Producter[%d] add msg count:%d %uMS", pInfo->id, nStaticMsgCount, dwEnd-dwStart);
-			dwStart = dwEnd;
-			Sleep(5000);
+			Sleep(10);
 		}
 #ifdef _MSGPTR
 		xMsg* msg = new xMsg;
@@ -204,10 +212,10 @@ void TestMsgList()
 	lstThread.push_back(h);
 
 
-// 	char c = 0;
-// 	cin.get(c);
-// 	g_bRun = false;
-	
+	// 	char c = 0;
+	// 	cin.get(c);
+	// 	g_bRun = false;
+
 	for (;;)
 	{
 		if(!g_bConsumerRun)
@@ -284,7 +292,7 @@ void TestString()
 		delete p;
 	}
 	PrintInfo("char count=%d size=%d time=%uMS", nTestNewCount, TEST_STRINTG_SIZE, GetTickCount()-dw1);
-	
+
 }
 
 //////////////////////////////////////////////////////////////////////////

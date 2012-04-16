@@ -62,6 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalOptions="&quot;libtcmalloc_minimal.lib&quot; /INCLUDE:&quot;__tcmalloc&quot;"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"

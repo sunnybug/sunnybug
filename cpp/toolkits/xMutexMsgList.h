@@ -51,4 +51,56 @@ private:
 	MsgList m_lst;
 };
 
+//∂‡–¥∂‡∂¡
+template< class T >
+class xDoubleLockList
+{
+public:	
+	// default constructor
+	xDoubleLockList()
+	{
+		m_lstPush = new MsgList;
+		m_lstPop = new MsgList;
+	}
+	~xDoubleLockList()
+	{
+		delete m_lstPush;
+		delete m_lstPop;
+	}
+	void enqueue(T* t)
+	{
+		xGuard<xCriticalSection> g(m_csPush);
+		m_lstPush->push_back(t);
+	}
+
+	bool dequeue(T*& t)
+	{
+		xGuard<xCriticalSection> g(m_csPop);
+		if(m_lstPop->empty())
+		{
+			MsgList* pList = NULL;
+			xGuard<xCriticalSection> g(m_csPush);
+			if(m_lstPop->empty())
+				return false;
+
+			pList = m_lstPush;
+			m_lstPush = m_lstPop;
+			m_lstPop = pList;
+		}
+
+		t = m_lstPop->front();
+		m_lstPop->pop_front();
+		return true;
+	}
+
+private:
+	typedef std::list<T*>	MsgList;
+private:
+	xCriticalSection m_csPush;
+	MsgList* m_lstPush;
+
+	xCriticalSection m_csPop;
+	MsgList* m_lstPop;
+};
+
 #endif
