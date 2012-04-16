@@ -117,15 +117,27 @@ int CPerfMon::AddCounter(const char *pszCounterName)
 //
 BOOL CPerfMon::RemoveCounter(int nIndex)
 {
-	PPDHCOUNTERSTRUCT pCounter = GetCounterStruct(nIndex);
-	if (!pCounter) return false;
+	PPDHCOUNTERSTRUCT pCounter = NULL;
+
+	for(std::vector<PPDHCOUNTERSTRUCT>::iterator it=m_aCounters.begin(); it!=m_aCounters.end(); ++it)
+	{
+		if((*it)->nIndex == nIndex)
+		{
+			pCounter = *it;
+			m_aCounters.erase(it);
+		}
+	}
+	if (!pCounter) 
+		return false;
 	
-	if (PdhRemoveCounter(pCounter->hCounter) != ERROR_SUCCESS)
+	HCOUNTER hCounter = pCounter->hCounter;
+	delete pCounter;
+
+	if (PdhRemoveCounter(hCounter) != ERROR_SUCCESS)
 		return false;
 		
 	return true;
 }
-
 
 // Function name	: CPerfMon::CollectQueryData
 // Description	    : Collects the data for all the counters added with AddCounter()
