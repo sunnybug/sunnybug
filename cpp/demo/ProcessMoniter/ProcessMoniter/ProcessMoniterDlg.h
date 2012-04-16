@@ -41,6 +41,13 @@ public:
 	CListCtrl m_lstPerf;
 
 	CPerfMon	m_perm;
+
+	void ResetPdh();
+	//////////////////////////////////////////////////////////////////////////
+	//每个线程的cpu
 	int m_idxProcessThreadCount;
-	int m_idxThreadPro;
+	CString m_strProcessName;
+	typedef std::vector<int> IntList;
+	IntList m_ThdCpuIdxs;
+	IntList m_ThdIDIdxs;
 };

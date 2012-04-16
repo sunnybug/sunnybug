@@ -98,18 +98,18 @@ BOOL CProcessMoniterDlg::OnInitDialog()
 	//  when the application's main window is not a dialog
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
+	SetDlgItemText(IDC_EDIT_PNAME, "91uund");
+	m_idxProcessThreadCount = -1;
 
 	m_process_info.Init();
 	m_perm.Initialize();
-	CString str;
-	GetDlgItemText(IDC_EDIT_PNAME, str);
-	CString str2;
-	str2.Format(CNTR_PROCESS_THREADCOUNT_s, str);
-	m_idxProcessThreadCount = m_perm.AddCounter(str2);
-	SetTimer(1, 500, NULL);
+
+	ResetPdh();
+
+	SetTimer(1, 1000, NULL);
 
 	//m_edtInfo.SetWindowText(CPDH::GetPDHInfo().c_str());
-	CPDH::BrownsePDH();
+ 	//CPDH::BrownsePDH();
 
 	//init perf list control
 
@@ -175,37 +175,93 @@ void CProcessMoniterDlg::OnBnClickedOk()
 
 void CProcessMoniterDlg::OnTimer(UINT_PTR nIDEvent)
 {
-	m_process_info.OnTimer();
+	CString str;
 
-	m_Info.SetWindowText(m_process_info.GetProcessData().m_txt);
+// 	m_process_info.OnTimer();
+// 
+// 	m_Info.SetWindowText(m_process_info.GetProcessData().m_txt);
 	//m_edtInfo.SetWindowText(CPDH::GetPDHInfo().c_str());
+
+	//////////////////////////////////////////////////////////////////////////
+	//每个线程的cpu
+	//get thread count
+	m_perm.CollectQueryData();
+	str.Format("Thread Count:%d\r\n", m_ThdCpuIdxs.size());
+
+	//thread info
+	int val = 0;
 	
-// 	//pid
-// 	CString ProcessName;
-// 	GetDlgItemText(IDC_EDIT_PNAME, ProcessName);
-// 	const DWORD dwPID = m_process_info.GetPID(ProcessName);
-// 
-// 	//get thread count
-// 	const int nThreadCount = m_perm.GetCounterValue(m_idxProcessThreadCount);
-// 	str.Format("Thread Count:%d\r\n", nThreadCount);
-// 
-// 	//thread info
-// 	CString strTmp;
-// 	int idx  = 0;
-// 	int val = 0;
-// 	CString strThreadInfo;
-// 	
-// 	for (int i=0; i<nThreadCount; ++i)
-// 	{
-// 		strTmp.Format("%d", )
-// 		strThreadInfo.Format(CNTR_THREAD_PRIVILEGEDTIME_s_d, (LPCSTR)ProcessName, i);
-// 		int idx = m_perm.AddCounter((LPCSTR)strThreadInfo);
-// 		ASSERT(idx >= 0);
-// 		val = m_perm.GetCounterValue(idx);
-// 		ASSERT(val >= 0);
-// 		strTmp.Format("PrivilegedTime:%d")
-// 	}
-// 	m_edtInfo.SetWindowText(str);
+	ASSERT(m_ThdIDIdxs.size() == m_ThdCpuIdxs.size());
+	for (int i=0; i<m_ThdCpuIdxs.size(); ++i)
+	{
+		CString strTmp;
+		strTmp.Format("T[%d]", i);
+		str += strTmp;
+		val = m_perm.GetCounterValue(m_ThdCpuIdxs[i]);
+		ASSERT(val >= 0);
+
+		long lMin = 0;
+		long lAvg = 0;
+		long lMax = 0;
+		ASSERT(m_perm.GetStatistics(&lMin, &lMax, &lAvg, m_ThdCpuIdxs[i]));
+
+		const int tid = m_perm.GetCounterValue(m_ThdIDIdxs[i]);
+
+		strTmp.Format("[%d]%d\t%d\t%d\t%d)\r\n", tid, val, lAvg, lMin, lMax);
+		str += strTmp;
+	}
+	//////////////////////////////////////////////////////////////////////////
+
+	m_edtInfo.SetWindowText(str);
+	TRACE(str);
 
 	CDialog::OnTimer(nIDEvent);
+}
+
+void CProcessMoniterDlg::ResetPdh()
+{
+	//del old
+	if(m_idxProcessThreadCount >= 0)
+		m_perm.RemoveCounter(m_idxProcessThreadCount);
+	for (IntList::const_iterator it=m_ThdCpuIdxs.begin(); it!=m_ThdCpuIdxs.end(); ++it)
+	{
+		m_perm.RemoveCounter(*it);
+	}
+
+	for (IntList::const_iterator it=m_ThdIDIdxs.begin(); it!=m_ThdIDIdxs.end(); ++it)
+	{
+		m_perm.RemoveCounter(*it);
+	}
+
+	//add new
+
+	GetDlgItemText(IDC_EDIT_PNAME, m_strProcessName);
+
+	CString str2;
+	str2.Format(CNTR_PROCESS_THREADCOUNT_s, m_strProcessName);
+
+	m_idxProcessThreadCount = m_perm.AddCounter(str2);
+
+	//////////////////////////////////////////////////////////////////////////
+	//每个线程的cpu
+	m_perm.CollectQueryData();
+	const int nThreadCount = m_perm.GetCounterValue(m_idxProcessThreadCount);
+	for (int i=0; i<nThreadCount; ++i)
+	{
+		CString strThreadInfo;
+		strThreadInfo.Format(CNTR_THREAD_PRIVILEGEDTIME_s_d, (LPCSTR)m_strProcessName, i);
+		int idx = m_perm.AddCounter((LPCSTR)strThreadInfo);
+		ASSERT(idx >= 0);
+		m_ThdCpuIdxs.push_back(idx);
+	}
+
+	//线程id
+	for (int i=0; i<nThreadCount; ++i)
+	{
+		CString strThreadInfo;
+		strThreadInfo.Format(CNTR_THREAD_ID_s_d, (LPCSTR)m_strProcessName, i);
+		int idx = m_perm.AddCounter((LPCSTR)strThreadInfo);
+		ASSERT(idx >= 0);
+		m_ThdIDIdxs.push_back(idx);
+	}
 }

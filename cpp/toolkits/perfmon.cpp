@@ -207,7 +207,8 @@ BOOL CPerfMon::GetStatistics(long *nMin, long *nMax, long *nMean, int nIndex)
 	PPDHCOUNTERSTRUCT pCounter = GetCounterStruct(nIndex);
 	if (!pCounter) return false;
 
-	if (PdhComputeCounterStatistics(pCounter->hCounter, PDH_FMT_LONG, pCounter->nOldestIndex, pCounter->nRawCount, pCounter->a_RawValue, &pdhStats) != ERROR_SUCCESS) 
+	PDH_STATUS ret = PdhComputeCounterStatistics(pCounter->hCounter, PDH_FMT_LONG, pCounter->nOldestIndex, pCounter->nRawCount, pCounter->a_RawValue, &pdhStats) ;
+	if (ret != ERROR_SUCCESS) 
 		return false;
 
 	// set values
