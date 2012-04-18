@@ -191,7 +191,7 @@ void CProcessMoniterDlg::OnTimer(UINT_PTR nIDEvent)
 	//thread info
 	int val = 0;
 	
-	ASSERT(m_ThdIDIdxs.size() == m_ThdCpuIdxs.size());
+	VERIFY(m_ThdIDIdxs.size() == m_ThdCpuIdxs.size());
 	for (int i=0; i<m_ThdCpuIdxs.size(); ++i)
 	{
 		CString strTmp;
@@ -203,7 +203,7 @@ void CProcessMoniterDlg::OnTimer(UINT_PTR nIDEvent)
 		long lMin = 0;
 		long lAvg = 0;
 		long lMax = 0;
-		ASSERT(m_perm.GetStatistics(&lMin, &lMax, &lAvg, m_ThdCpuIdxs[i]));
+		VERIFY(m_perm.GetStatistics(&lMin, &lMax, &lAvg, m_ThdCpuIdxs[i]));
 
 		const int tid = m_perm.GetCounterValue(m_ThdIDIdxs[i]);
 
@@ -227,11 +227,13 @@ void CProcessMoniterDlg::ResetPdh()
 	{
 		m_perm.RemoveCounter(*it);
 	}
+	m_ThdCpuIdxs.clear();
 
 	for (IntList::const_iterator it=m_ThdIDIdxs.begin(); it!=m_ThdIDIdxs.end(); ++it)
 	{
 		m_perm.RemoveCounter(*it);
 	}
+	m_ThdIDIdxs.clear();
 
 	//add new
 
@@ -249,7 +251,7 @@ void CProcessMoniterDlg::ResetPdh()
 	for (int i=0; i<nThreadCount; ++i)
 	{
 		CString strThreadInfo;
-		strThreadInfo.Format(CNTR_THREAD_PRIVILEGEDTIME_s_d, (LPCSTR)m_strProcessName, i);
+		strThreadInfo.Format(CNTR_THREAD_CPU_s_d, (LPCSTR)m_strProcessName, i);
 		int idx = m_perm.AddCounter((LPCSTR)strThreadInfo);
 		ASSERT(idx >= 0);
 		m_ThdCpuIdxs.push_back(idx);
