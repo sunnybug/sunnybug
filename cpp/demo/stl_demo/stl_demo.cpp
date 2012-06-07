@@ -178,25 +178,31 @@ void demo_enum(const int LOOP_ITEM, const int LOOP_COUNT)
 	}
 
 
-	cout << "[Item:" << LOOP_ITEM << ",LOOP:" << LOOP_COUNT 
-		<< "] enum map:" << tickEnumMap.GetUsedMS() << " ms" 
-		<< ", enum hashmap: " << tickEnumMHashap.GetUsedMS() << " ms" 
-		<< ", enum vec: " << tickEnumVec.GetUsedMS() << " ms" 
-		<< ", enum at: " << tickAtVec.GetUsedMS() << " ms" 
+	cout << "元素个数:" << LOOP_ITEM << ",执行次数:" << LOOP_COUNT 
+		<< "] map:" << tickEnumMap.GetUsedMS() << " ms" 
+		<< ", hashmap: " << tickEnumMHashap.GetUsedMS() << " ms" 
+		<< ", vec: " << tickEnumVec.GetUsedMS() << " ms" 
+		<< ", at: " << tickAtVec.GetUsedMS() << " ms" 
 		<< ", " << (float)tickEnumMap.GetUsedMS()/(float)tickEnumVec.GetUsedMS() << endl;
 }
 
 void test_enum()
 {
-	demo_enum(1000, 1000);
-	demo_enum(10000, 1000);
+	demo_enum(10, 10000);
+	demo_enum(10000, 10000);
 }
 
 //////////////////////////////////////////////////////////////////////////
 //比较常量vector list和map的查找性能
 void testFind(const int LOOP_ITEM, const int LOOP_COUNT)
 {
+	srand(time(NULL));
 	typedef map<int, int> IntMap;
+#if _MSC_VER >=1600
+	typedef std::hash_map<int, int> IntHashMap;
+#else
+	typedef stdext::hash_map<int, int> IntHashMap;
+#endif // _DEBUG
 	typedef vector<int> IntVec;
 	typedef list<int> IntList;
 	typedef set<int> IntSet;
@@ -220,9 +226,31 @@ void testFind(const int LOOP_ITEM, const int LOOP_COUNT)
 		}	
 		tFindMap.Finish();
 
-		cout << "[Item:" << LOOP_ITEM << ",LOOP:" << LOOP_COUNT << "] find map:" << tFindMap.GetUsedMS() << " ms" << endl;
+		cout << "元素个数:" << LOOP_ITEM << ",执行次数:" << LOOP_COUNT << "] find map:" << tFindMap.GetUsedMS() << " ms" << endl;
 	}
 
+	{
+		IntHashMap m1;
+		for (int i=0; i<LOOP_ITEM; ++i)
+		{
+			m1[i] = i;
+		}
+
+		xTickCount tFindMap;
+		int n1 = 0;
+		tFindMap.Start();
+		int nRand = 0;
+		for (int i=0; i<LOOP_COUNT; ++i)
+		{
+			IntHashMap::const_iterator it = m1.find(rand()%LOOP_ITEM);
+			if(it != m1.end())
+				++nRand;
+		}	
+		tFindMap.Finish();
+
+		cout << "元素个数:" << LOOP_ITEM << ",执行次数:" << LOOP_COUNT << "] find hashmap:" << tFindMap.GetUsedMS() << " ms" << endl;
+	}
+	
 	{
 		IntSet m1;
 		for (int i=0; i<LOOP_ITEM; ++i)
@@ -242,7 +270,7 @@ void testFind(const int LOOP_ITEM, const int LOOP_COUNT)
 		}	
 		tFindMap.Finish();
 
-		cout << "[Item:" << LOOP_ITEM << ",LOOP:" << LOOP_COUNT << "] find set:" << tFindMap.GetUsedMS() << " ms" << endl;
+		cout << "元素个数:" << LOOP_ITEM << ",执行次数:" << LOOP_COUNT << "] find set:" << tFindMap.GetUsedMS() << " ms" << endl;
 	}
 
 	{
@@ -289,7 +317,7 @@ void testFind(const int LOOP_ITEM, const int LOOP_COUNT)
 			//n1 += m1.at(rand()%LOOP_ITEM);
 		}	
 		tFindVec.Finish();
-		cout << "[Item:" << LOOP_ITEM << ",LOOP:" << LOOP_COUNT << "] find vec:" << tFindVec.GetUsedMS() << " ms" << endl;
+		cout << "元素个数:" << LOOP_ITEM << ",执行次数:" << LOOP_COUNT << "] find vec:" << tFindVec.GetUsedMS() << " ms" << endl;
 	}
 
 	{
@@ -314,16 +342,16 @@ void testFind(const int LOOP_ITEM, const int LOOP_COUNT)
 			}
 		}	
 		tFindVec.Finish();
-		cout << "[Item:" << LOOP_ITEM << ",LOOP:" << LOOP_COUNT << "] find list:" << tFindVec.GetUsedMS() << " ms" << endl;
+		cout << "元素个数:" << LOOP_ITEM << ",执行次数:" << LOOP_COUNT << "] find list:" << tFindVec.GetUsedMS() << " ms" << endl;
 	}
 }
 
 void testFindDemo()
 {
-// 	testFind(2, 1000000);
+ 	testFind(2, 1000000);
 	testFind(5, 1000000);
-	testFind(10, 1000000);
-	testFind(100, 100000);
+	testFind(100, 1000000);
+//	testFind(10000, 100000);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -390,7 +418,7 @@ void testVectorEnum(const int LOOP_ITEM, const int LOOP_COUNT)
 	}
 	tickEnumAt.Finish();
 
-	cout << "[Item:" << LOOP_ITEM << ",LOOP:" << LOOP_COUNT 
+	cout << "元素个数:" << LOOP_ITEM << ",执行次数:" << LOOP_COUNT 
 		<< "] []:" << tickEnum.GetUsedMS() 
 		<< "ms ite:" << tickEnumIter.GetUsedMS()
 		<< "ms at:" << tickEnumAt.GetUsedMS()
@@ -709,9 +737,7 @@ ddd
 //////////////////////////////////////////////////////////////////////////
 int _tmain(int argc, _TCHAR* argv[])
 {
-	//testFindDemo();
-	void* p = new char[15];
-	//delete p;
+	test_enum();
 	return 0;
 }
 
