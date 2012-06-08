@@ -435,5 +435,7 @@ class LogDlg(QtGui.QMainWindow):
 		self.modelSvrGroup.ReverseCheck(idx)
 		self.ui.tvSvr.clearSelection()	#通过这个接口刷新界面
 
+
+        
 if __name__ == "__main__":
 	LogDlg()

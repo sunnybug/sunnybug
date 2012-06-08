@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric5 project file for project xPyQTDemo -->
-<!-- Saved: 2012-06-08, 19:32:30 -->
+<!-- Saved: 2012-06-08, 22:03:52 -->
 <!-- Copyright (C) 2012 ,  -->
 <Project version="5.1">
   <Language></Language>
@@ -26,7 +26,6 @@
   </Sources>
   <Forms>
     <Form>ui/DlgLog.ui</Form>
-    <Form>ui/DlgCheckLog.ui</Form>
   </Forms>
   <Translations/>
   <Resources/>

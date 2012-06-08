@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>767</width>
-    <height>715</height>
+    <width>773</width>
+    <height>719</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,53 +29,6 @@
     <property name="sizeConstraint">
      <enum>QLayout::SetFixedSize</enum>
     </property>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_7">
-      <item>
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>当前LOG目录:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="edtLogPath"/>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>下载速度</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="edtDownSpeed">
-        <property name="minimumSize">
-         <size>
-          <width>50</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>50</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="inputMask">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>KB/s</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="minimumSize">
@@ -97,150 +50,11 @@
        <attribute name="title">
         <string>下载Log</string>
        </attribute>
-       <widget class="QGroupBox" name="groupSvrList">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>100</y>
-          <width>501</width>
-          <height>51</height>
-         </rect>
-        </property>
-        <property name="title">
-         <string>服务器</string>
-        </property>
-        <widget class="QWidget" name="horizontalLayoutWidget">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>10</y>
-           <width>501</width>
-           <height>41</height>
-          </rect>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout"/>
-        </widget>
-       </widget>
-       <widget class="QWidget" name="horizontalLayoutWidget_4">
-        <property name="geometry">
-         <rect>
-          <x>250</x>
-          <y>50</y>
-          <width>328</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <item>
-          <widget class="QPushButton" name="btnAnalystLog">
-           <property name="enabled">
-            <bool>true</bool>
-           </property>
-           <property name="text">
-            <string>分析</string>
-           </property>
-           <property name="checkable">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnDumpCmd">
-           <property name="enabled">
-            <bool>true</bool>
-           </property>
-           <property name="text">
-            <string>生成命令行</string>
-           </property>
-           <property name="checkable">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnImportLog">
-           <property name="enabled">
-            <bool>true</bool>
-           </property>
-           <property name="text">
-            <string>导入</string>
-           </property>
-           <property name="checkable">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnMergeLog">
-           <property name="enabled">
-            <bool>true</bool>
-           </property>
-           <property name="text">
-            <string>合并</string>
-           </property>
-           <property name="checkable">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="horizontalLayoutWidget_2">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>50</y>
-          <width>245</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <widget class="QPushButton" name="btnAddTask">
-           <property name="enabled">
-            <bool>true</bool>
-           </property>
-           <property name="text">
-            <string>加任务</string>
-           </property>
-           <property name="checkable">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnClearTask">
-           <property name="enabled">
-            <bool>true</bool>
-           </property>
-           <property name="text">
-            <string>清任务</string>
-           </property>
-           <property name="checkable">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnDownLogByFileName">
-           <property name="enabled">
-            <bool>true</bool>
-           </property>
-           <property name="text">
-            <string>开始</string>
-           </property>
-           <property name="checkable">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
        <widget class="QWidget" name="horizontalLayoutWidget_3">
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>10</y>
+          <y>40</y>
           <width>751</width>
           <height>41</height>
          </rect>
@@ -298,9 +112,9 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>160</y>
-          <width>211</width>
-          <height>311</height>
+          <y>90</y>
+          <width>221</width>
+          <height>381</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -319,6 +133,195 @@
          </item>
         </layout>
        </widget>
+       <widget class="QWidget" name="layoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>769</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>当前LOG目录:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="edtLogPath"/>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>下载速度</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="edtDownSpeed">
+           <property name="minimumSize">
+            <size>
+             <width>50</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>50</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="inputMask">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>KB/s</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="verticalLayoutWidget_3">
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>90</y>
+          <width>541</width>
+          <height>131</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QGroupBox" name="groupSvrList">
+           <property name="title">
+            <string>服务器</string>
+           </property>
+           <widget class="QWidget" name="horizontalLayoutWidget">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>10</y>
+              <width>551</width>
+              <height>41</height>
+             </rect>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout"/>
+           </widget>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <item>
+            <widget class="QPushButton" name="btnAnalystLog">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="text">
+              <string>分析</string>
+             </property>
+             <property name="checkable">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnDumpCmd">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="text">
+              <string>生成命令行</string>
+             </property>
+             <property name="checkable">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnImportLog">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="text">
+              <string>导入</string>
+             </property>
+             <property name="checkable">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnMergeLog">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="text">
+              <string>合并</string>
+             </property>
+             <property name="checkable">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QPushButton" name="btnAddTask">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="text">
+              <string>加任务</string>
+             </property>
+             <property name="checkable">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnClearTask">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="text">
+              <string>清任务</string>
+             </property>
+             <property name="checkable">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnDownLogByFileName">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="text">
+              <string>开始</string>
+             </property>
+             <property name="checkable">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+       <zorder>horizontalLayoutWidget_3</zorder>
+       <zorder>verticalLayoutWidget</zorder>
+       <zorder>layoutWidget</zorder>
+       <zorder>verticalLayoutWidget_3</zorder>
+       <zorder>groupSvrList</zorder>
       </widget>
       <widget class="QWidget" name="tabCheckLog">
        <attribute name="title">
@@ -327,11 +330,75 @@
        <widget class="QTreeView" name="treeViewWarnLog">
         <property name="geometry">
          <rect>
-          <x>180</x>
+          <x>0</x>
           <y>160</y>
-          <width>581</width>
+          <width>761</width>
           <height>311</height>
          </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_5">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>10</y>
+          <width>291</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>目标服务器列表为config.py的g_lstFtpGroup</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_6">
+        <property name="geometry">
+         <rect>
+          <x>400</x>
+          <y>20</y>
+          <width>24</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>分钟</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_7">
+        <property name="geometry">
+         <rect>
+          <x>310</x>
+          <y>20</y>
+          <width>31</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>间隔</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="edtDownSpeed_2">
+        <property name="geometry">
+         <rect>
+          <x>344</x>
+          <y>20</y>
+          <width>50</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>50</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="inputMask">
+         <string/>
         </property>
        </widget>
       </widget>
@@ -384,8 +451,8 @@
    <slot>OnDownSpeedEditFinish()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>100</x>
-     <y>27</y>
+     <x>738</x>
+     <y>21</y>
     </hint>
     <hint type="destinationlabel">
      <x>186</x>
@@ -400,8 +467,8 @@
    <slot>AnalystLog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>320</x>
-     <y>90</y>
+     <x>324</x>
+     <y>131</y>
     </hint>
     <hint type="destinationlabel">
      <x>145</x>
@@ -416,8 +483,8 @@
    <slot>ImportLog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>210</x>
-     <y>71</y>
+     <x>420</x>
+     <y>128</y>
     </hint>
     <hint type="destinationlabel">
      <x>205</x>
@@ -432,8 +499,8 @@
    <slot>MergeLog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>291</x>
-     <y>58</y>
+     <x>544</x>
+     <y>115</y>
     </hint>
     <hint type="destinationlabel">
      <x>199</x>
@@ -448,8 +515,8 @@
    <slot>OnBtnDumpCmd()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>112</x>
-     <y>124</y>
+     <x>337</x>
+     <y>131</y>
     </hint>
     <hint type="destinationlabel">
      <x>219</x>
@@ -496,8 +563,8 @@
    <slot>OnAddTask()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>57</x>
-     <y>102</y>
+     <x>61</x>
+     <y>131</y>
     </hint>
     <hint type="destinationlabel">
      <x>188</x>
@@ -512,8 +579,8 @@
    <slot>OnClearTask()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>137</x>
-     <y>97</y>
+     <x>163</x>
+     <y>131</y>
     </hint>
     <hint type="destinationlabel">
      <x>263</x>
@@ -528,8 +595,8 @@
    <slot>DownLogByFileName()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>51</x>
-     <y>121</y>
+     <x>221</x>
+     <y>131</y>
     </hint>
     <hint type="destinationlabel">
      <x>273</x>
