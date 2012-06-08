@@ -159,7 +159,6 @@ class LogDlg(QtGui.QMainWindow):
 		QtGui.QWidget.__init__(self, parent)
 		self.ui = Ui_DlgLog()
 		self.ui.setupUi(self)
-
 		self.taskMgr = CCmdTaskMgr(self)
 		self.thdAnalystLog = CAnalystLogThread(self)
 
