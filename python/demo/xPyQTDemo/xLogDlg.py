@@ -24,29 +24,6 @@ from xAnalystLog import *
 from xTaskMgr import *
 from SvrCheckTree import *
 
-#=================================================================================================
-#cfg
-
-TXT_BTN_DOWNLOG_ING = '停止下载'
-TXT_BTN_DOWNLOG_IDLE = '开始'
-TXT_BTN_ANALYSTLOG_ING = '停止解析'
-TXT_BTN_ANALYSTLOG_IDLE = '解析Log'
-TXT_BTN_MERGELOG_ING = '停止合并'
-TXT_BTN_MERGELOG_IDLE = '合并Log'
-TXT_BTN_IMPORTLOG_ING = '停止导入'
-TXT_BTN_IMPORTLOG_IDLE = '导入Log'
-
-#LogDlg内部消息
-MSG_LOGDLG_BEGIN = 1000
-MSG_ANALYST_LOG_START      = MSG_LOGDLG_BEGIN + 3
-MSG_ANALYST_LOG_FINISH      = MSG_LOGDLG_BEGIN + 4
-MSG_DOWN_LOG_START          = MSG_LOGDLG_BEGIN + 5
-MSG_DOWN_LOG_FINISH          = MSG_LOGDLG_BEGIN + 6
-MSG_ANALYST_MERGE_START   = MSG_LOGDLG_BEGIN + 7
-MSG_ANALYST_MERGE_FINISH   = MSG_LOGDLG_BEGIN + 8
-MSG_ANALYST_IMPORT_START   = MSG_LOGDLG_BEGIN + 9
-MSG_ANALYST_IMPORT_FINISH   = MSG_LOGDLG_BEGIN + 10
-
 #========================================================================
 #help func
 def CreateFtpDownCmd(strUrl, strUser='', strPw='', strLocalPath='', bSync=False):
@@ -123,6 +100,23 @@ class CLog():
 		self.content = ''
 
 
+#========================================================================
+#
+class CAutoCheckLogTab():
+	def __init__(self, parent):
+		self.parent = parent
+		self.thdCheckLogThread = None
+
+	def OnBtnCheckLog(self):
+		if(self.parent.ui.btnCheckLog.text() == TXT_BTN_ANALYSTLOG_IDLE):
+			self.parent.ui.btnCheckLog.setText(TXT_BTN_ANALYSTLOG_ING)
+			self.thdCheckLogThread = CAutoCheckLogThread(self.parent)
+			self.thdCheckLogThread.start()
+		elif self.thdCheckLogThread is not None:
+			self.parent.ui.btnCheckLog.setText(TXT_BTN_ANALYSTLOG_IDLE)
+			self.thdCheckLogThread.stop()
+			self.thdCheckLogThread = None
+
 
 #========================================================================
 #treeViewWarnLog
@@ -162,6 +156,9 @@ class LogDlg(QtGui.QMainWindow):
 		self.taskMgr = CCmdTaskMgr(self)
 		self.thdAnalystLog = CAnalystLogThread(self)
 
+		#tab
+		self.tabCheckLog = CAutoCheckLogTab(self)
+
 		#追加文本自动滚动
 		self.ui.edtMsg.ensureCursorVisible()    
 		#服务器treeview列表
@@ -173,7 +170,7 @@ class LogDlg(QtGui.QMainWindow):
 
 		##########
 		#init ui context
-		self.ui.btnAnalystLog.setText(TXT_BTN_ANALYSTLOG_IDLE)
+		self.ui.btnCheckLog.setText(TXT_BTN_ANALYSTLOG_IDLE)
 		self.ui.btnMergeLog.setText(TXT_BTN_MERGELOG_IDLE)
 		self.ui.btnImportLog.setText(TXT_BTN_IMPORTLOG_IDLE)
 		self.ui.edtLogPath.setText(g_cfg.GetLastLogPath())
@@ -236,14 +233,8 @@ class LogDlg(QtGui.QMainWindow):
 		self.taskMgr.StopAllTask()
 		self.ui.btnDownLogByFileName.setText(TXT_BTN_DOWNLOG_IDLE)
 
-	def AnalystLog(self):
-		if(self.ui.btnAnalystLog.text() == TXT_BTN_ANALYSTLOG_IDLE):
-			self.thdAnalystLog = CAnalystLogThread(self)
-			self.thdAnalystLog.SetCmd(CAnalystLogThread.LOG_CMD_ANALYST)
-			self.thdAnalystLog.start()
-		elif self.thdAnalystLog is not None:
-			self.thdAnalystLog.stop()
-			self.thdAnalystLog = None
+	def OnBtnCheckLog(self):
+		self.tabCheckLog.OnBtnCheckLog()
 
 	def ImportLog(self):
 		self.thdAnalystLog = CAnalystLogThread(self)
@@ -286,11 +277,11 @@ class LogDlg(QtGui.QMainWindow):
 			self.ShowMsg('下载log:结束')
 			self.ui.btnDownLogByFileName.setText(TXT_BTN_DOWNLOG_IDLE)   
 		elif msg == MSG_ANALYST_LOG_START:
-			self.ShowMsg('解析Log:开始')
-			self.ui.btnAnalystLog.setText(TXT_BTN_ANALYSTLOG_ING)
+			self.ShowMsg('自动检查log任务开始')
+			#self.ui.btnCheckLog.setText(TXT_BTN_ANALYSTLOG_ING)
 		elif msg == MSG_ANALYST_LOG_FINISH:
-			self.ShowMsg('解析Log:结束')
-			self.ui.btnAnalystLog.setText(TXT_BTN_ANALYSTLOG_IDLE)
+			self.ShowMsg('自动检查log任务结束')
+			#self.ui.btnCheckLog.setText(TXT_BTN_ANALYSTLOG_IDLE)
 		elif msg == MSG_ANALYST_MERGE_START:
 			self.ShowMsg('合并Log:开始')
 			self.ui.btnMergeLog.setText(TXT_BTN_MERGELOG_ING)

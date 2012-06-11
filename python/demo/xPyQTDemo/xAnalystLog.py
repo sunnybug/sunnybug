@@ -1,5 +1,6 @@
 #coding=utf-8
 import threading
+from threading import Thread
 from cfg import *
 from config import *
 
@@ -116,7 +117,6 @@ class CFastPharseLog():
 class CAnalystLogThread(threading.Thread):
     LOG_CMD_NONE         = 0
     LOG_CMD_MERGE        = 1
-    LOG_CMD_ANALYST     = 2
     LOG_CMD_IMPORT      = 3
     
     def __init__(self, dlg):
@@ -209,12 +209,73 @@ class CAnalystLogThread(threading.Thread):
 
               
     def run(self):  #重写run()方法，把自己的线程函数的代码放到这里
-        if self.cmd == CAnalystLogThread.LOG_CMD_ANALYST:
-            self.ProcessAnalyst();
-        elif self.cmd == CAnalystLogThread.LOG_CMD_MERGE:
+        if self.cmd == CAnalystLogThread.LOG_CMD_MERGE:
             self.ProcessMerge();
         elif self.cmd == CAnalystLogThread.LOG_CMD_IMPORT:
             self.ProcessImport();
         
     def stop(self):
         self.stop_flag = True
+
+
+#========================================================================
+#定期检查Log
+class CAutoCheckLogThread(Thread):
+    def __init__(self, parent):
+        threading.Thread.__init__(self)
+        self.interval=3
+        self.run_flag = False
+        self.is_run_already = False
+        self.parent = parent
+        self.strCheckPath = ''
+        self.nMinute = 999
+        self.nLastCheckTime = 0 #前一次检查时间
+
+    def run(self):  #重写run()方法，把自己的线程函数的代码放到这里
+        try:
+            while(self.run_flag):
+                self.Process()
+                time.sleep(1) 
+        except Exception as ex:
+            ErrPrint(ex) 
+             
+    def start(self):
+        self.GenerateParam()
+        self.run_flag = True
+        if not self.is_run_already:
+            self.is_run_already = True
+            threading.Thread.start(self)
+    
+    def stop(self):
+        self.run_flag = False
+
+    def GenerateParam(self):
+        self.strCheckPath = self.parent.ui.edtCheckLogPath.text()
+        if self.parent.ui.edtCheckLogMinute.text() != '':
+            self.nMinute = int(self.parent.ui.edtCheckLogMinute.text())
+        else:
+            self.nMinute = 1
+        
+    def Process(self):
+        try:
+            #定时触发
+            if self.nLastCheckTime!=0 and ((self.nLastCheckTime-time.time()) < self.nMinute*60):
+                return
+            self.nLastCheckTime = time.time()
+            self.GenerateParam()
+            self.parent.signalProcessMsg.emit(MSG_ANALYST_LOG_START)
+
+            #分析指定目录的log文件(支持子目录)
+            directory = self.strCheckPath
+            for root, dirs, files in os.walk(directory, True):
+                for name in files:
+                    if not self.run_flag:
+                        break
+                    full_name = os.path.join(root, name)
+                    retMatch = g_cfg.IsErrLogFile(full_name)
+                    if retMatch.ret:
+                        self.parent.signalAddWarnLog.emit(retMatch)
+               
+        except Exception as ex:
+            ErrPrint(ex)
+        self.parent.signalProcessMsg.emit(MSG_ANALYST_LOG_FINISH)

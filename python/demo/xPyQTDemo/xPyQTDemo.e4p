@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric5 project file for project xPyQTDemo -->
-<!-- Saved: 2012-06-08, 22:03:52 -->
+<!-- Saved: 2012-06-11, 18:52:05 -->
 <!-- Copyright (C) 2012 ,  -->
 <Project version="5.1">
   <Language></Language>
@@ -22,7 +22,6 @@
     <Source>bin/run.py</Source>
     <Source>ui/Ui_DlgLog.py</Source>
     <Source>SvrCheckTree.pyw</Source>
-    <Source>ui/Ui_DlgCheckLog.py</Source>
   </Sources>
   <Forms>
     <Form>ui/DlgLog.ui</Form>

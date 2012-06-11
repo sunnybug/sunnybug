@@ -44,7 +44,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tabDownLog">
        <attribute name="title">
@@ -146,7 +146,7 @@
          <item>
           <widget class="QLabel" name="label">
            <property name="text">
-            <string>当前LOG目录:</string>
+            <string>LOG目录:</string>
            </property>
           </widget>
          </item>
@@ -218,19 +218,6 @@
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_4">
-           <item>
-            <widget class="QPushButton" name="btnAnalystLog">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="text">
-              <string>分析</string>
-             </property>
-             <property name="checkable">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
            <item>
             <widget class="QPushButton" name="btnDumpCmd">
              <property name="enabled">
@@ -317,11 +304,6 @@
          </item>
         </layout>
        </widget>
-       <zorder>horizontalLayoutWidget_3</zorder>
-       <zorder>verticalLayoutWidget</zorder>
-       <zorder>layoutWidget</zorder>
-       <zorder>verticalLayoutWidget_3</zorder>
-       <zorder>groupSvrList</zorder>
       </widget>
       <widget class="QWidget" name="tabCheckLog">
        <attribute name="title">
@@ -353,8 +335,8 @@
        <widget class="QLabel" name="label_6">
         <property name="geometry">
          <rect>
-          <x>400</x>
-          <y>20</y>
+          <x>730</x>
+          <y>40</y>
           <width>24</width>
           <height>20</height>
          </rect>
@@ -366,8 +348,8 @@
        <widget class="QLabel" name="label_7">
         <property name="geometry">
          <rect>
-          <x>310</x>
-          <y>20</y>
+          <x>640</x>
+          <y>40</y>
           <width>31</width>
           <height>20</height>
          </rect>
@@ -376,11 +358,11 @@
          <string>间隔</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="edtDownSpeed_2">
+       <widget class="QLineEdit" name="edtCheckLogMinute">
         <property name="geometry">
          <rect>
-          <x>344</x>
-          <y>20</y>
+          <x>674</x>
+          <y>40</y>
           <width>50</width>
           <height>20</height>
          </rect>
@@ -399,6 +381,48 @@
         </property>
         <property name="inputMask">
          <string/>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="edtCheckLogPath">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>39</y>
+          <width>573</width>
+          <height>20</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_8">
+        <property name="geometry">
+         <rect>
+          <x>6</x>
+          <y>30</y>
+          <width>48</width>
+          <height>39</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>LOG目录:</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnCheckLog">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>70</y>
+          <width>71</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>开始</string>
+        </property>
+        <property name="checkable">
+         <bool>false</bool>
         </property>
        </widget>
       </widget>
@@ -435,8 +459,8 @@
    <slot>OnLogPathEditFinish()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>425</x>
-     <y>8</y>
+     <x>483</x>
+     <y>39</y>
     </hint>
     <hint type="destinationlabel">
      <x>423</x>
@@ -451,28 +475,12 @@
    <slot>OnDownSpeedEditFinish()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>738</x>
-     <y>21</y>
+     <x>740</x>
+     <y>50</y>
     </hint>
     <hint type="destinationlabel">
      <x>186</x>
      <y>27</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btnAnalystLog</sender>
-   <signal>clicked()</signal>
-   <receiver>DlgLog</receiver>
-   <slot>AnalystLog()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>324</x>
-     <y>131</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>145</x>
-     <y>83</y>
     </hint>
    </hints>
   </connection>
@@ -483,8 +491,8 @@
    <slot>ImportLog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>420</x>
-     <y>128</y>
+     <x>534</x>
+     <y>188</y>
     </hint>
     <hint type="destinationlabel">
      <x>205</x>
@@ -499,8 +507,8 @@
    <slot>MergeLog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>544</x>
-     <y>115</y>
+     <x>761</x>
+     <y>188</y>
     </hint>
     <hint type="destinationlabel">
      <x>199</x>
@@ -515,8 +523,8 @@
    <slot>OnBtnDumpCmd()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>337</x>
-     <y>131</y>
+     <x>342</x>
+     <y>188</y>
     </hint>
     <hint type="destinationlabel">
      <x>219</x>
@@ -563,8 +571,8 @@
    <slot>OnAddTask()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>61</x>
-     <y>131</y>
+     <x>225</x>
+     <y>233</y>
     </hint>
     <hint type="destinationlabel">
      <x>188</x>
@@ -579,8 +587,8 @@
    <slot>OnClearTask()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>163</x>
-     <y>131</y>
+     <x>406</x>
+     <y>233</y>
     </hint>
     <hint type="destinationlabel">
      <x>263</x>
@@ -595,12 +603,28 @@
    <slot>DownLogByFileName()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>221</x>
-     <y>131</y>
+     <x>588</x>
+     <y>233</y>
     </hint>
     <hint type="destinationlabel">
      <x>273</x>
      <y>119</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnCheckLog</sender>
+   <signal>clicked()</signal>
+   <receiver>DlgLog</receiver>
+   <slot>OnBtnCheckLog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>38</x>
+     <y>100</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>299</x>
+     <y>-55</y>
     </hint>
    </hints>
   </connection>
@@ -621,5 +645,6 @@
   <slot>OnBtnDumpCmd()</slot>
   <slot>OnSvrTreeClicked()</slot>
   <slot>OnBtnAllGroup()</slot>
+  <slot>OnBtnCheckLog()</slot>
  </slots>
 </ui>

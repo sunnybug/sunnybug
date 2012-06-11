@@ -12,6 +12,28 @@ logging.basicConfig(level=logging.DEBUG)
 
 re.I = True
 
+#=================================================================================================
+#cfg
+TXT_BTN_DOWNLOG_ING = '停止下载'
+TXT_BTN_DOWNLOG_IDLE = '开始'
+TXT_BTN_ANALYSTLOG_ING = '停止解析'
+TXT_BTN_ANALYSTLOG_IDLE = '解析Log'
+TXT_BTN_MERGELOG_ING = '停止合并'
+TXT_BTN_MERGELOG_IDLE = '合并Log'
+TXT_BTN_IMPORTLOG_ING = '停止导入'
+TXT_BTN_IMPORTLOG_IDLE = '导入Log'
+
+#LogDlg内部消息
+MSG_LOGDLG_BEGIN = 1000
+MSG_ANALYST_LOG_START      = MSG_LOGDLG_BEGIN + 3
+MSG_ANALYST_LOG_FINISH      = MSG_LOGDLG_BEGIN + 4
+MSG_DOWN_LOG_START          = MSG_LOGDLG_BEGIN + 5
+MSG_DOWN_LOG_FINISH          = MSG_LOGDLG_BEGIN + 6
+MSG_ANALYST_MERGE_START   = MSG_LOGDLG_BEGIN + 7
+MSG_ANALYST_MERGE_FINISH   = MSG_LOGDLG_BEGIN + 8
+MSG_ANALYST_IMPORT_START   = MSG_LOGDLG_BEGIN + 9
+MSG_ANALYST_IMPORT_FINISH   = MSG_LOGDLG_BEGIN + 10
+
 #========================================================================
 #global function
 from PyQt4.QtGui import *
@@ -79,6 +101,7 @@ class CErrRule:
         if file_name_rules == None:
             return False
         for file_name_str in file_name_rules:
+            DbgPrint(base_file_name + "     " + file_name_str)
             reFileName = re.compile(file_name_str,  re.IGNORECASE)
             m = reFileName.match(base_file_name)
             if m:
@@ -168,7 +191,7 @@ class CCfg:
 #            <exclude_line val="排除我吧1" />
 #            <exclude_line val="排除我吧2" />
 #        </err>
-#    </err_log>
+#    </err_log>r
         self.ErrRules = []  #CErrRule数组
         xml_err_log = xml_root.find('err_log')
         if xml_err_log != None:

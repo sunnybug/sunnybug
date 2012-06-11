@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'D:\doc\gitpub\github_sunnybug\python\demo\xPyQTDemo\ui\DlgLog.ui'
 #
-# Created: Fri Jun 08 22:03:13 2012
+# Created: Mon Jun 11 18:06:45 2012
 #      by: PyQt4 UI code generator 4.7.7
 #
 # WARNING! All changes made in this file will be lost!
@@ -18,7 +18,7 @@ class Ui_DlgLog(object):
     def setupUi(self, DlgLog):
         DlgLog.setObjectName(_fromUtf8("DlgLog"))
         DlgLog.setEnabled(True)
-        DlgLog.resize(767, 802)
+        DlgLog.resize(773, 719)
         self.verticalLayoutWidget_2 = QtGui.QWidget(DlgLog)
         self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(0, 0, 771, 716))
         self.verticalLayoutWidget_2.setObjectName(_fromUtf8("verticalLayoutWidget_2"))
@@ -106,11 +106,6 @@ class Ui_DlgLog(object):
         self.verticalLayout_2.addWidget(self.groupSvrList)
         self.horizontalLayout_4 = QtGui.QHBoxLayout()
         self.horizontalLayout_4.setObjectName(_fromUtf8("horizontalLayout_4"))
-        self.btnAnalystLog = QtGui.QPushButton(self.verticalLayoutWidget_3)
-        self.btnAnalystLog.setEnabled(True)
-        self.btnAnalystLog.setCheckable(False)
-        self.btnAnalystLog.setObjectName(_fromUtf8("btnAnalystLog"))
-        self.horizontalLayout_4.addWidget(self.btnAnalystLog)
         self.btnDumpCmd = QtGui.QPushButton(self.verticalLayoutWidget_3)
         self.btnDumpCmd.setEnabled(True)
         self.btnDumpCmd.setCheckable(False)
@@ -155,17 +150,28 @@ class Ui_DlgLog(object):
         self.label_5.setGeometry(QtCore.QRect(0, 10, 291, 21))
         self.label_5.setObjectName(_fromUtf8("label_5"))
         self.label_6 = QtGui.QLabel(self.tabCheckLog)
-        self.label_6.setGeometry(QtCore.QRect(400, 20, 24, 20))
+        self.label_6.setGeometry(QtCore.QRect(730, 40, 24, 20))
         self.label_6.setObjectName(_fromUtf8("label_6"))
         self.label_7 = QtGui.QLabel(self.tabCheckLog)
-        self.label_7.setGeometry(QtCore.QRect(310, 20, 31, 20))
+        self.label_7.setGeometry(QtCore.QRect(640, 40, 31, 20))
         self.label_7.setObjectName(_fromUtf8("label_7"))
-        self.edtDownSpeed_2 = QtGui.QLineEdit(self.tabCheckLog)
-        self.edtDownSpeed_2.setGeometry(QtCore.QRect(344, 20, 50, 20))
-        self.edtDownSpeed_2.setMinimumSize(QtCore.QSize(50, 20))
-        self.edtDownSpeed_2.setMaximumSize(QtCore.QSize(50, 20))
-        self.edtDownSpeed_2.setInputMask(_fromUtf8(""))
-        self.edtDownSpeed_2.setObjectName(_fromUtf8("edtDownSpeed_2"))
+        self.edtCheckLogMinute = QtGui.QLineEdit(self.tabCheckLog)
+        self.edtCheckLogMinute.setGeometry(QtCore.QRect(674, 40, 50, 20))
+        self.edtCheckLogMinute.setMinimumSize(QtCore.QSize(50, 20))
+        self.edtCheckLogMinute.setMaximumSize(QtCore.QSize(50, 20))
+        self.edtCheckLogMinute.setInputMask(_fromUtf8(""))
+        self.edtCheckLogMinute.setObjectName(_fromUtf8("edtCheckLogMinute"))
+        self.edtCheckLogPath = QtGui.QLineEdit(self.tabCheckLog)
+        self.edtCheckLogPath.setGeometry(QtCore.QRect(60, 39, 573, 20))
+        self.edtCheckLogPath.setObjectName(_fromUtf8("edtCheckLogPath"))
+        self.label_8 = QtGui.QLabel(self.tabCheckLog)
+        self.label_8.setGeometry(QtCore.QRect(6, 30, 48, 39))
+        self.label_8.setObjectName(_fromUtf8("label_8"))
+        self.btnCheckLog = QtGui.QPushButton(self.tabCheckLog)
+        self.btnCheckLog.setEnabled(True)
+        self.btnCheckLog.setGeometry(QtCore.QRect(0, 70, 71, 25))
+        self.btnCheckLog.setCheckable(False)
+        self.btnCheckLog.setObjectName(_fromUtf8("btnCheckLog"))
         self.tabWidget.addTab(self.tabCheckLog, _fromUtf8(""))
         self.verticalLayout_4.addWidget(self.tabWidget)
         self.edtMsg = QtGui.QTextEdit(self.verticalLayoutWidget_2)
@@ -176,10 +182,9 @@ class Ui_DlgLog(object):
         self.verticalLayout_4.addWidget(self.edtMsg)
 
         self.retranslateUi(DlgLog)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QObject.connect(self.edtLogPath, QtCore.SIGNAL(_fromUtf8("editingFinished()")), DlgLog.OnLogPathEditFinish)
         QtCore.QObject.connect(self.edtDownSpeed, QtCore.SIGNAL(_fromUtf8("editingFinished()")), DlgLog.OnDownSpeedEditFinish)
-        QtCore.QObject.connect(self.btnAnalystLog, QtCore.SIGNAL(_fromUtf8("clicked()")), DlgLog.AnalystLog)
         QtCore.QObject.connect(self.btnImportLog, QtCore.SIGNAL(_fromUtf8("clicked()")), DlgLog.ImportLog)
         QtCore.QObject.connect(self.btnMergeLog, QtCore.SIGNAL(_fromUtf8("clicked()")), DlgLog.MergeLog)
         QtCore.QObject.connect(self.btnDumpCmd, QtCore.SIGNAL(_fromUtf8("clicked()")), DlgLog.OnBtnDumpCmd)
@@ -188,6 +193,7 @@ class Ui_DlgLog(object):
         QtCore.QObject.connect(self.btnAddTask, QtCore.SIGNAL(_fromUtf8("clicked()")), DlgLog.OnAddTask)
         QtCore.QObject.connect(self.btnClearTask, QtCore.SIGNAL(_fromUtf8("clicked()")), DlgLog.OnClearTask)
         QtCore.QObject.connect(self.btnDownLogByFileName, QtCore.SIGNAL(_fromUtf8("clicked()")), DlgLog.DownLogByFileName)
+        QtCore.QObject.connect(self.btnCheckLog, QtCore.SIGNAL(_fromUtf8("clicked()")), DlgLog.OnBtnCheckLog)
         QtCore.QMetaObject.connectSlotsByName(DlgLog)
 
     def retranslateUi(self, DlgLog):
@@ -197,11 +203,10 @@ class Ui_DlgLog(object):
         self.chkFuzzy.setText(QtGui.QApplication.translate("DlgLog", "模糊匹配", None, QtGui.QApplication.UnicodeUTF8))
         self.chkGmlog.setText(QtGui.QApplication.translate("DlgLog", "gmlog", None, QtGui.QApplication.UnicodeUTF8))
         self.chkAllGroup.setText(QtGui.QApplication.translate("DlgLog", "AllGroup", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setText(QtGui.QApplication.translate("DlgLog", "当前LOG目录:", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("DlgLog", "LOG目录:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("DlgLog", "下载速度", None, QtGui.QApplication.UnicodeUTF8))
         self.label_3.setText(QtGui.QApplication.translate("DlgLog", "KB/s", None, QtGui.QApplication.UnicodeUTF8))
         self.groupSvrList.setTitle(QtGui.QApplication.translate("DlgLog", "服务器", None, QtGui.QApplication.UnicodeUTF8))
-        self.btnAnalystLog.setText(QtGui.QApplication.translate("DlgLog", "分析", None, QtGui.QApplication.UnicodeUTF8))
         self.btnDumpCmd.setText(QtGui.QApplication.translate("DlgLog", "生成命令行", None, QtGui.QApplication.UnicodeUTF8))
         self.btnImportLog.setText(QtGui.QApplication.translate("DlgLog", "导入", None, QtGui.QApplication.UnicodeUTF8))
         self.btnMergeLog.setText(QtGui.QApplication.translate("DlgLog", "合并", None, QtGui.QApplication.UnicodeUTF8))
@@ -212,6 +217,8 @@ class Ui_DlgLog(object):
         self.label_5.setText(QtGui.QApplication.translate("DlgLog", "目标服务器列表为config.py的g_lstFtpGroup", None, QtGui.QApplication.UnicodeUTF8))
         self.label_6.setText(QtGui.QApplication.translate("DlgLog", "分钟", None, QtGui.QApplication.UnicodeUTF8))
         self.label_7.setText(QtGui.QApplication.translate("DlgLog", "间隔", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_8.setText(QtGui.QApplication.translate("DlgLog", "LOG目录:", None, QtGui.QApplication.UnicodeUTF8))
+        self.btnCheckLog.setText(QtGui.QApplication.translate("DlgLog", "开始", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabCheckLog), QtGui.QApplication.translate("DlgLog", "检查Log", None, QtGui.QApplication.UnicodeUTF8))
 
 
