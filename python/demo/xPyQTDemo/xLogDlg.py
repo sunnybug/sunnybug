@@ -121,13 +121,15 @@ class CAutoCheckLogTab():
 #========================================================================
 #treeViewWarnLog
 WARNLIST_TYPE       = 0
-WARNLIST_FILENAME = 1
-WARNLIST_INFO        = 2
+WARNLIST_SVR = 1
+WARNLIST_FILENAME = 2
+WARNLIST_INFO        = 3
 
 class CWarnListUI():
 	def __init__(self,  parent,  treeview):
 		self.model = QtGui.QStandardItemModel(0, 3, parent)
 		self.model.setHeaderData(WARNLIST_TYPE, QtCore.Qt.Horizontal, "类型")
+		self.model.setHeaderData(WARNLIST_SVR, QtCore.Qt.Horizontal, "服务器")
 		self.model.setHeaderData(WARNLIST_FILENAME, QtCore.Qt.Horizontal, "文件名")
 		self.model.setHeaderData(WARNLIST_INFO, QtCore.Qt.Horizontal, "信息")
 
@@ -135,9 +137,10 @@ class CWarnListUI():
 		self.treeview.setModel(self.model)
 		self.treeview.setSortingEnabled(True)        
 
-	def Add(self,  type,  filename,  info):
+	def Add(self,  type,  filename,  info, svr):
 		self.model.insertRow(0)
 		self.model.setData(self.model.index(0, WARNLIST_TYPE), type)
+		self.model.setData(self.model.index(0, WARNLIST_SVR), svr)
 		self.model.setData(self.model.index(0, WARNLIST_FILENAME), filename)
 		self.model.setData(self.model.index(0, WARNLIST_INFO), info)
 
@@ -296,7 +299,8 @@ class LogDlg(QtGui.QMainWindow):
 			self.ui.btnImportLog.setText(TXT_BTN_IMPORTLOG_IDLE)
 
 	def AddWarnLog(self,  stAddWarnLogMsg):
-		self.uiWarnList.Add(stAddWarnLogMsg.type,  os.path.split(stAddWarnLogMsg.file_full_name)[1],  stAddWarnLogMsg.rule)
+		self.uiWarnList.Add(stAddWarnLogMsg.type,  os.path.split(stAddWarnLogMsg.file_full_name)[1],  stAddWarnLogMsg.rule,
+			os.path.split(stAddWarnLogMsg.file_full_name)[0])
 
 	def OnAllTaskFinish(self):
 		if(self.ui.chkCompressOnFinish.isChecked()):
