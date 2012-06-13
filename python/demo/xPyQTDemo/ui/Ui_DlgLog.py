@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'D:\doc\gitpub\github_sunnybug\python\demo\xPyQTDemo\ui\DlgLog.ui'
 #
-# Created: Mon Jun 11 18:06:45 2012
+# Created: Tue Jun 12 15:30:18 2012
 #      by: PyQt4 UI code generator 4.7.7
 #
 # WARNING! All changes made in this file will be lost!
@@ -145,6 +145,10 @@ class Ui_DlgLog(object):
         self.tabCheckLog.setObjectName(_fromUtf8("tabCheckLog"))
         self.treeViewWarnLog = QtGui.QTreeView(self.tabCheckLog)
         self.treeViewWarnLog.setGeometry(QtCore.QRect(0, 160, 761, 311))
+        self.treeViewWarnLog.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
+        self.treeViewWarnLog.setProperty(_fromUtf8("showDropIndicator"), False)
+        self.treeViewWarnLog.setAlternatingRowColors(True)
+        self.treeViewWarnLog.setSortingEnabled(True)
         self.treeViewWarnLog.setObjectName(_fromUtf8("treeViewWarnLog"))
         self.label_5 = QtGui.QLabel(self.tabCheckLog)
         self.label_5.setGeometry(QtCore.QRect(0, 10, 291, 21))

@@ -124,116 +124,85 @@ class CErrRule:
         return True
             
     def IsMatch(self,  file_full_name):
-        retDetail = AddWarnLogMsg()
-        retDetail.type = self.GetName()
-        retDetail.file_full_name = file_full_name
-       
         '''文件是否匹配'''
         base_file_name = os.path.split(file_full_name)[1]
         ret = self.IsMatchFileName(base_file_name)
         if ret:
+            retDetail = AddWarnLogMsg()
+            retDetail.type = self.GetName()
+            retDetail.file_full_name = file_full_name
             retDetail.ret = True
             retDetail.match_reason = '文件名匹配'
             retDetail.rule = ret[1]
             retDetail.line = 0
-        
-        return retDetail
+            return retDetail
+        return None
 
 class CCfg:
     def __init__(self,  ini_file,  history_file,  app_dir):
-        self.LogPath = ''
-        self.ftp_user = ''
-        self.ftp_pw = ''
-        self.last_log_path = ''
-        self.down_speed = ''
-        self.ini_file = ''
-        self.history_file = ''
-        self.app_dir = ''
         self.ini_file = ini_file
         self.history_file = history_file
+        self.app_dir = ''
         self.app_dir = XswUtility.AppendPathTag(app_dir)
+        self.lstAutoDown = []
+
+        self.xml_cfg = ET.parse(ini_file)
+        self.xml_cfg_log = self.xml_cfg.getroot().find('log')
+        if self.xml_cfg_log == None:
+            self.xml_cfg_log = ET.Element("log")
+            self.xml_cfg.getroot().append(self.xml_cfg_log)
+        self.xml_cfg_autodown = self.xml_cfg.getroot().find('auto_down')
+        if self.xml_cfg_autodown == None:
+            self.xml_cfg_autodown = ET.Element("auto_down")
+            self.xml_cfg.getroot().append(self.xml_cfg_log)
+
+        self.xml_history = ET.parse(history_file)
+        self.xml_history_log = self.xml_history.getroot().find('log')
+        if self.xml_history_log == None:
+            self.xml_history_log = ET.Element("log")
+            self.xml_history.getroot().append(self.xml_history_log)
+
         self.LoadCfg()
-        self.LoadHistory()
 
     def LoadCfg(self):
-        xml_tree = ET.parse(self.ini_file)
-        xml_root = xml_tree.getroot()
-#<log
-#    path = "log"
-#    ftp_user = "syslog_log"
-#    ftp_pw = "XfjaHxZ3AMN>~rm"
-#/>
-        xml_log = xml_root.find('log')
-        if (xml_log != None):
-            self.LogPath = xml_log.get('path')
-            self.ftp_user = xml_log.get('ftp_user')
-            self.ftp_pw = xml_log.get('ftp_pw')
-            self.last_log_path = xml_log.get('last_log_path')
-            self.down_speed = xml_log.get('down_speed')
-
-           #create log path
-            self.AppPath =  self.app_dir
-            if(self.LogPath[1] != ':'):
-                self.LogPath = self.app_dir
-            if(self.LogPath  != '' and not os.path.exists(self.LogPath)):
-                if(self.LogPath[-1] != '/' or self.LogPath[-1]!='\\'):
-                    self.LogPath += '\\'
-                os.makedirs(self.LogPath)
-                
-#err_log
-#    <err_log>
-#        <err name="严重异常">
-#            <!--文件名，部分匹配，支持正则表达式-->
-#            <file_name val="*err*" />
-#            <!--包含这些log内容则说明有问题，优先于exclude规则-->
-#            <include_line val="包含我则有问题" />
-#            <!--如果文件内容只有这些行，则不告警，支持部分匹配-->
-#            <exclude_line val="排除我吧1" />
-#            <exclude_line val="排除我吧2" />
-#        </err>
-#    </err_log>r
         self.ErrRules = []  #CErrRule数组
-        xml_err_log = xml_root.find('err_log')
+        xml_err_log = self.xml_cfg.getroot().find('err_log')
         if xml_err_log != None:
             for xml_err in xml_err_log:
                 rule = CErrRule(xml_err.get('val')) #开始解析一个CErrRule
                 for xml_rule in xml_err:
                     rule.AddRule(xml_rule.tag,  xml_rule.get('val'))
                     self.ErrRules.append(rule)
+
+        for xml in xml_cfg_autodown:
+            self.lstAutoDown.append(xml.get('val'))
                     
     def __del__(self):
         self.Write()
         
-    def LoadHistory(self):
-        xml_tree = ET.parse(self.history_file)
-        xml_root = xml_tree.getroot()     
-        xml_log = xml_root.find('log')
-        if (xml_log != None):
-            self.last_log_path = xml_log.get('last_log_path')
-            self.down_speed = xml_log.get('down_speed')
-       
+    # def LoadHistory(self):
+    #     xml_tree = ET.parse(self.history_file)
+    #     xml_root = xml_tree.getroot()     
+    #     xml_log = xml_root.find('log')
+    #     # if (xml_log != None):
+    #     #     self.down_speed = xml_log.get('down_speed')
+    #     #     self.check_log_path = xml_log.get('check_log_path')
+    #     #     self.check_log_minute = xml_log.get('check_log_minute')
+     
     def Write(self):
-        xml_tree = ET.parse(self.history_file)
-        xml_root = xml_tree.getroot()  
-        xml_log = xml_root.find('log')
-        if xml_log == None:
-            xml_log = ET.Element("log")
-            xml_root.append(xml_log)
-            
-        xml_log.set('last_log_path',  self.GetLastLogPath())
-        xml_log.set('down_speed',  self.GetDownSpeed())
-        xml_tree.write(self.history_file)
+        # xml_log.set('down_speed',  self.GetDownSpeed())
+        self.xml_history.write(self.history_file)
                     
-    def GetDayLogPath(self,  strDay, svr=''):
-        if(svr == ''):
-            return self.LogPath + (strDay)
-        return self.LogPath + strDay + '\\' + svr
+    # def GetDayLogPath(self,  strDay, svr=''):
+    #     if(svr == ''):
+    #         return self.LogPath + (strDay)
+    #     return self.LogPath + strDay + '\\' + svr
         
     def GetLogFtpUser(self):
-        return self.ftp_user
+        return self.xml_cfg_log.get('ftp_user')
         
     def GetLogFtpPw(self):
-        return self.ftp_pw
+        return self.xml_cfg_log.get('ftp_pw')
     
     #是否错误的log
     def IsErrLogFile(self,  file_name):
@@ -244,20 +213,32 @@ class CCfg:
         return None
                 
     def GetLastLogPath(self):
-        '''最近的log目录 '''
-        return self.last_log_path
+        return self.xml_history_log.get('last_log_path')
     def SetLastLogPath(self,  val):
-        '''最近的log目录 '''
-        self.last_log_path = val
+        self.xml_history_log.set('last_log_path',  val)
         self.Write()
-    def GetDownSpeed(self):
-        if self.down_speed==None or len(self.down_speed) == 0:
-            self.down_speed = '500'
-        return self.down_speed
-    def SetDownSpeed(self,  val):
-        self.down_speed = val
+
+    def GetCheckPath(self):
+        return self.xml_history_log.get('check_path')
+    def SetCheckPath(self,  val):
+        self.xml_history_log.set('check_path',  val)
+        self.Write()
+
+    def GetCheckMiniute(self):
+        return self.xml_history_log.get('check_minute')
+    def SetCheckMiniute(self,  val):
+        self.xml_history_log.set('check_minute',  val)
         self.Write()
         
+    def GetDownSpeed(self):
+        return self.xml_history_log.get('down_speed')
+    def SetDownSpeed(self,  val):
+        self.xml_history_log.set('down_speed',  val)
+        self.Write()
+
+    def GetAutoDownList(self):
+        return self.lstAutoDown
+      
 #    def GetTodayLogPath(self,  svr=''):
 #        '''本日log目录 '''
 #        tm = time.localtime()
@@ -268,4 +249,4 @@ class CCfg:
 g_cfg = CCfg('sunnybug.xml',  'history.xml', os.path.dirname(sys.argv[0]))
 
 if __name__ == "__main__":
-    print(g_cfg.IsErrLogFile('hierr.log'))
+    print(g_cfg.IsErrLogFile('AutoIDWarn 2012-5-29.log'))

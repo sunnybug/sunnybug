@@ -3,6 +3,18 @@ import threading
 from threading import Thread
 from cfg import *
 from config import *
+from xTaskMgr import *
+
+#========================================================================
+#help func
+def CreateFtpDownCmd(strUrl, strUser='', strPw='', strLocalPath='', bSync=False):
+    WGET_CMD = r'wget.exe'
+    #X:\tool\net\wget\wget.exe -c ftp://up:upup@121.207.234.87/GameServer_syslog/Stat*
+    #-b:background download
+    #--limit_rate:下载速度限制
+    #-P:目标目录
+    strCMD = '%s -c --ignore-case --timeout=60 --limit-rate=%sk "ftp://%s:%s@%s" -P "%s" ' % (WGET_CMD, g_cfg.GetDownSpeed(), strUser, strPw, strUrl, strLocalPath)
+    return strCMD
 
 import sqlite3
 class CLogDB():
@@ -230,6 +242,7 @@ class CAutoCheckLogThread(Thread):
         self.strCheckPath = ''
         self.nMinute = 999
         self.nLastCheckTime = 0 #前一次检查时间
+        self.taskMgr = CCmdTaskMgr(self)
 
     def run(self):  #重写run()方法，把自己的线程函数的代码放到这里
         try:
@@ -265,6 +278,16 @@ class CAutoCheckLogThread(Thread):
             self.GenerateParam()
             self.parent.signalProcessMsg.emit(MSG_ANALYST_LOG_START)
 
+            #开始下载
+            strPath = g_cfg.GetCheckPath()
+            XswUtility.MKDir(strPath)
+            lstDown = g_cfg.GetAutoDownList()
+            for down in lstDown:
+                for svr in g_lstFtpGroup:
+                    
+                    os.system(strCmd)
+
+
             #分析指定目录的log文件(支持子目录)
             directory = self.strCheckPath
             for root, dirs, files in os.walk(directory, True):
@@ -273,7 +296,7 @@ class CAutoCheckLogThread(Thread):
                         break
                     full_name = os.path.join(root, name)
                     retMatch = g_cfg.IsErrLogFile(full_name)
-                    if retMatch.ret:
+                    if retMatch and retMatch.ret:
                         self.parent.signalAddWarnLog.emit(retMatch)
                
         except Exception as ex:

@@ -109,6 +109,8 @@ class CAutoCheckLogTab():
 
 	def OnBtnCheckLog(self):
 		if(self.parent.ui.btnCheckLog.text() == TXT_BTN_ANALYSTLOG_IDLE):
+			g_cfg.SetCheckPath(self.parent.ui.edtCheckLogPath.text())
+			g_cfg.SetCheckMiniute(self.parent.ui.edtCheckLogMinute.text())
 			self.parent.ui.btnCheckLog.setText(TXT_BTN_ANALYSTLOG_ING)
 			self.thdCheckLogThread = CAutoCheckLogThread(self.parent)
 			self.thdCheckLogThread.start()
@@ -127,17 +129,29 @@ WARNLIST_INFO        = 3
 
 class CWarnListUI():
 	def __init__(self,  parent,  treeview):
-		self.model = QtGui.QStandardItemModel(0, 3, parent)
+		self.model = QtGui.QStandardItemModel(0, 4, parent)
 		self.model.setHeaderData(WARNLIST_TYPE, QtCore.Qt.Horizontal, "类型")
 		self.model.setHeaderData(WARNLIST_SVR, QtCore.Qt.Horizontal, "服务器")
 		self.model.setHeaderData(WARNLIST_FILENAME, QtCore.Qt.Horizontal, "文件名")
-		self.model.setHeaderData(WARNLIST_INFO, QtCore.Qt.Horizontal, "信息")
+		self.model.setHeaderData(WARNLIST_INFO, QtCore.Qt.Horizontal, "对应规则")
 
 		self.treeview = treeview
 		self.treeview.setModel(self.model)
 		self.treeview.setSortingEnabled(True)        
+		self.treeview.setColumnWidth (WARNLIST_TYPE, 80)
+		self.treeview.setColumnWidth (WARNLIST_SVR, 200)
+		self.treeview.setColumnWidth (WARNLIST_FILENAME, 200)
+
+		#历史信息缓存
+		self.dicCache = {}
 
 	def Add(self,  type,  filename,  info, svr):
+		#过滤服务器名、文件名、规则一致的
+		str = filename + "x" + info + "x" + svr
+		if self.dicCache.get(str)  != None:
+			return
+		self.dicCache[str] = 1
+
 		self.model.insertRow(0)
 		self.model.setData(self.model.index(0, WARNLIST_TYPE), type)
 		self.model.setData(self.model.index(0, WARNLIST_SVR), svr)
@@ -177,6 +191,8 @@ class LogDlg(QtGui.QMainWindow):
 		self.ui.btnMergeLog.setText(TXT_BTN_MERGELOG_IDLE)
 		self.ui.btnImportLog.setText(TXT_BTN_IMPORTLOG_IDLE)
 		self.ui.edtLogPath.setText(g_cfg.GetLastLogPath())
+		self.ui.edtCheckLogPath.setText(g_cfg.GetCheckPath())
+		self.ui.edtCheckLogMinute.setText(g_cfg.GetCheckMiniute())
 		self.uiWarnList = CWarnListUI(self,  self.ui.treeViewWarnLog) 
 		self.ui.edtDownSpeed.setText(g_cfg.GetDownSpeed())
 
@@ -205,7 +221,7 @@ class LogDlg(QtGui.QMainWindow):
 		'''创建下载命令序列，返回下载命令列表，按ip进行管理'''
 		dicCmd = {} #key:ip value:list of string
 		for lstSvrs in lstlstSvrs:
-			for svr in lstSvrs[FIELD_FTPSVR_LIST]:
+			for svr in lstSvrs[FIELD_FTPSVRrLIST]:
 				svr_name = svr[FTPSVR_FIELD_NAME]
 				ip = svr[FTPSVR_FIELD_IP]
 				#path
@@ -300,7 +316,7 @@ class LogDlg(QtGui.QMainWindow):
 
 	def AddWarnLog(self,  stAddWarnLogMsg):
 		self.uiWarnList.Add(stAddWarnLogMsg.type,  os.path.split(stAddWarnLogMsg.file_full_name)[1],  stAddWarnLogMsg.rule,
-			os.path.split(stAddWarnLogMsg.file_full_name)[0])
+			XswUtility.GetParentPath(stAddWarnLogMsg.file_full_name))
 
 	def OnAllTaskFinish(self):
 		if(self.ui.chkCompressOnFinish.isChecked()):

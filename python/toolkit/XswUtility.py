@@ -110,6 +110,20 @@ def GetPaths(files):
                 dirs[file_dir] = 1;
     return dirs
 
+#父目录 c:\dd\x.bat --> dd
+def GetParentPath(strPath):  
+    if not strPath:  
+        return None;  
+      
+    lsPath = os.path.split(strPath)
+    strParent = ''
+    if lsPath[1]:
+        strParent = lsPath[0]
+    else: 
+        lsPath = os.path.split(lsPath[0]);
+        strParent = lsPath[0]
+
+    return strParent[strParent.rfind('\\')+1:]
 
 ################################################
 #创建目录，dirs为相对路径，支持逐级创建目录
@@ -408,5 +422,7 @@ if __name__ == '__main__':
     #SvnCopy(r'https://xswrun.svn.sourceforge.net/svnroot/xswrun/autoit', r'https://xswrun.svn.sourceforge.net/svnroot/xswrun/autoit3')
     #if not MKDir('syslog'): print('fail')
     #CheckPythonCode(r'D:\\demo\\xswrun\\PythonDemo\\OSDemo.py')
-    Dir3_GB2312ToUTF8(r'D:\demo\xswrun\python\demo\xPyQTDemo\bin\9-14\t')
+    #Dir3_GB2312ToUTF8(r'D:\demo\xswrun\python\demo\xPyQTDemo\bin\9-14\t')
+    GetParentPath(r'D:\doc\gitpub\github_sunnybug\python\toolkit\XswUtility.py')
+    GetParentPath(r'D:\doc\gitpub\github_sunnybug\python\toolkit\\')
     ''
