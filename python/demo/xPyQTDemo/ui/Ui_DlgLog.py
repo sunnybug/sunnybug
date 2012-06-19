@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'D:\doc\gitpub\github_sunnybug\python\demo\xPyQTDemo\ui\DlgLog.ui'
 #
-# Created: Tue Jun 12 15:30:18 2012
-#      by: PyQt4 UI code generator 4.7.7
+# Created: Tue Jun 19 12:52:02 2012
+#      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -24,6 +24,7 @@ class Ui_DlgLog(object):
         self.verticalLayoutWidget_2.setObjectName(_fromUtf8("verticalLayoutWidget_2"))
         self.verticalLayout_4 = QtGui.QVBoxLayout(self.verticalLayoutWidget_2)
         self.verticalLayout_4.setSizeConstraint(QtGui.QLayout.SetFixedSize)
+        self.verticalLayout_4.setMargin(0)
         self.verticalLayout_4.setObjectName(_fromUtf8("verticalLayout_4"))
         self.tabWidget = QtGui.QTabWidget(self.verticalLayoutWidget_2)
         self.tabWidget.setMinimumSize(QtCore.QSize(0, 500))
@@ -35,6 +36,7 @@ class Ui_DlgLog(object):
         self.horizontalLayoutWidget_3.setGeometry(QtCore.QRect(0, 40, 751, 41))
         self.horizontalLayoutWidget_3.setObjectName(_fromUtf8("horizontalLayoutWidget_3"))
         self.horizontalLayout_3 = QtGui.QHBoxLayout(self.horizontalLayoutWidget_3)
+        self.horizontalLayout_3.setMargin(0)
         self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
         self.label_4 = QtGui.QLabel(self.horizontalLayoutWidget_3)
         self.label_4.setObjectName(_fromUtf8("label_4"))
@@ -60,6 +62,7 @@ class Ui_DlgLog(object):
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 90, 221, 381))
         self.verticalLayoutWidget.setObjectName(_fromUtf8("verticalLayoutWidget"))
         self.verticalLayout = QtGui.QVBoxLayout(self.verticalLayoutWidget)
+        self.verticalLayout.setMargin(0)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.chkAllGroup = QtGui.QCheckBox(self.verticalLayoutWidget)
         self.chkAllGroup.setChecked(False)
@@ -72,6 +75,7 @@ class Ui_DlgLog(object):
         self.layoutWidget.setGeometry(QtCore.QRect(0, 0, 769, 41))
         self.layoutWidget.setObjectName(_fromUtf8("layoutWidget"))
         self.horizontalLayout_7 = QtGui.QHBoxLayout(self.layoutWidget)
+        self.horizontalLayout_7.setMargin(0)
         self.horizontalLayout_7.setObjectName(_fromUtf8("horizontalLayout_7"))
         self.label = QtGui.QLabel(self.layoutWidget)
         self.label.setObjectName(_fromUtf8("label"))
@@ -95,6 +99,7 @@ class Ui_DlgLog(object):
         self.verticalLayoutWidget_3.setGeometry(QtCore.QRect(220, 90, 541, 131))
         self.verticalLayoutWidget_3.setObjectName(_fromUtf8("verticalLayoutWidget_3"))
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.verticalLayoutWidget_3)
+        self.verticalLayout_2.setMargin(0)
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
         self.groupSvrList = QtGui.QGroupBox(self.verticalLayoutWidget_3)
         self.groupSvrList.setObjectName(_fromUtf8("groupSvrList"))
@@ -102,6 +107,7 @@ class Ui_DlgLog(object):
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(0, 10, 551, 41))
         self.horizontalLayoutWidget.setObjectName(_fromUtf8("horizontalLayoutWidget"))
         self.horizontalLayout = QtGui.QHBoxLayout(self.horizontalLayoutWidget)
+        self.horizontalLayout.setMargin(0)
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
         self.verticalLayout_2.addWidget(self.groupSvrList)
         self.horizontalLayout_4 = QtGui.QHBoxLayout()
@@ -146,7 +152,7 @@ class Ui_DlgLog(object):
         self.treeViewWarnLog = QtGui.QTreeView(self.tabCheckLog)
         self.treeViewWarnLog.setGeometry(QtCore.QRect(0, 160, 761, 311))
         self.treeViewWarnLog.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
-        self.treeViewWarnLog.setProperty(_fromUtf8("showDropIndicator"), False)
+        self.treeViewWarnLog.setProperty("showDropIndicator", False)
         self.treeViewWarnLog.setAlternatingRowColors(True)
         self.treeViewWarnLog.setSortingEnabled(True)
         self.treeViewWarnLog.setObjectName(_fromUtf8("treeViewWarnLog"))

@@ -16,14 +16,13 @@
         </err>
         <err val="ID告警">
             <!--文件名，正则表达式-->
-            <file_name val="AutoIDWarn 201.*\.log" />
         </err>
     </err_log>
 
     <!-- 定时下载log -->
     <auto_down>
-        <val='AutoIDWarn 201*.log'>
-    </auto_down>
+        <rule val="AutoIDWarn 201*.log"/>
+   </auto_down>
     
 </sunnybug>
 

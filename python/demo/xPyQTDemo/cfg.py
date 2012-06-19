@@ -55,7 +55,39 @@ def ErrPrint(str):
     if g_bErrLog:
         print('ERR:%s' % str,  )
         print(traceback.format_exc() )
-              
+
+
+#help func
+def CreateFtpDownCmd(strUrl, strUser='', strPw='', strLocalPath='', bSync=False):
+    WGET_CMD = r'wget.exe'
+    #X:\tool\net\wget\wget.exe -c ftp://up:upup@121.207.234.87/GameServer_syslog/Stat*
+    #-b:background download
+    #--limit_rate:下载速度限制
+    #-P:目标目录
+    strCMD = '%s -c --ignore-case --timeout=60 --limit-rate=%sk "ftp://%s:%s@%s" -P "%s" ' % (WGET_CMD, g_cfg.GetDownSpeed(), strUser, strPw, strUrl, strLocalPath)
+    return strCMD
+
+def CreateDownCmd(strDownStr,  strPath,  lstlstSvrs,  bIsFuzzy):
+    '''创建下载命令序列，返回下载命令列表，按ip进行管理'''
+    dicCmd = {} #key:ip value:list of string
+    for lstSvrs in lstlstSvrs:
+        for svr in lstSvrs[FIELD_FTPSVR_LIST]:
+            svr_name = svr[FTPSVR_FIELD_NAME]
+            ip = svr[FTPSVR_FIELD_IP]
+            #path
+            path = os.path.join(strPath,  lstSvrs[FIELD_FTPSVR_NAME]+'_'+svr_name+'_'+ip)
+            XswUtility.MKDir(path)
+            #一个服务器可能有多个目录要下载
+            for log_path in svr[FTPSVR_FIELD_PATH]:
+                if (bIsFuzzy):#是否模糊匹配
+                    strCmd = CreateFtpDownCmd(('%s/%s/*%s*.log' % (ip, log_path, strDownStr)), g_cfg.GetLogFtpUser(), g_cfg.GetLogFtpPw(), path)
+                else:
+                    strCmd = CreateFtpDownCmd(('%s/%s/%s' % (ip, log_path, strDownStr)), g_cfg.GetLogFtpUser(), g_cfg.GetLogFtpPw(), path)
+                if not dicCmd.get(ip):
+                    dicCmd[ip] = []
+                dicCmd[ip].append(strCmd)
+
+    return dicCmd              
 #========================================================================
 #class CCfg
 
@@ -140,23 +172,24 @@ class CErrRule:
 
 class CCfg:
     def __init__(self,  ini_file,  history_file,  app_dir):
-        self.ini_file = ini_file
-        self.history_file = history_file
+        self.ini_file = os.path.join(app_dir, ini_file)
+        self.history_file = os.path.join(app_dir, history_file)
         self.app_dir = ''
         self.app_dir = XswUtility.AppendPathTag(app_dir)
         self.lstAutoDown = []
 
-        self.xml_cfg = ET.parse(ini_file)
+        self.xml_cfg = ET.parse(self.ini_file)
         self.xml_cfg_log = self.xml_cfg.getroot().find('log')
         if self.xml_cfg_log == None:
             self.xml_cfg_log = ET.Element("log")
             self.xml_cfg.getroot().append(self.xml_cfg_log)
+            
         self.xml_cfg_autodown = self.xml_cfg.getroot().find('auto_down')
         if self.xml_cfg_autodown == None:
             self.xml_cfg_autodown = ET.Element("auto_down")
-            self.xml_cfg.getroot().append(self.xml_cfg_log)
+            self.xml_cfg.getroot().append(self.xml_cfg_autodown)
 
-        self.xml_history = ET.parse(history_file)
+        self.xml_history = ET.parse(self.history_file)
         self.xml_history_log = self.xml_history.getroot().find('log')
         if self.xml_history_log == None:
             self.xml_history_log = ET.Element("log")
@@ -174,7 +207,7 @@ class CCfg:
                     rule.AddRule(xml_rule.tag,  xml_rule.get('val'))
                     self.ErrRules.append(rule)
 
-        for xml in xml_cfg_autodown:
+        for xml in self.xml_cfg_autodown:
             self.lstAutoDown.append(xml.get('val'))
                     
     def __del__(self):

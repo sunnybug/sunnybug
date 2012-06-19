@@ -24,18 +24,6 @@ from xAnalystLog import *
 from xTaskMgr import *
 from SvrCheckTree import *
 
-#========================================================================
-#help func
-def CreateFtpDownCmd(strUrl, strUser='', strPw='', strLocalPath='', bSync=False):
-	WGET_CMD = r'wget.exe'
-	#X:\tool\net\wget\wget.exe -c ftp://up:upup@121.207.234.87/GameServer_syslog/Stat*
-	#-b:background download
-	#--limit_rate:下载速度限制
-	#-P:目标目录
-	strCMD = '%s -c --ignore-case --timeout=60 --limit-rate=%sk "ftp://%s:%s@%s" -P "%s" ' % (WGET_CMD, g_cfg.GetDownSpeed(), strUser, strPw, strUrl, strLocalPath)
-	return strCMD
-
-
 class CLogTimeStruct():
 	def __init__(self):
 		self.year = 0
@@ -217,28 +205,6 @@ class LogDlg(QtGui.QMainWindow):
 
 		self.ShowMsg('启动完成')
 
-	def CreateDownCmd(self,  strDownStr,  strPath,  lstlstSvrs,  bIsFuzzy):
-		'''创建下载命令序列，返回下载命令列表，按ip进行管理'''
-		dicCmd = {} #key:ip value:list of string
-		for lstSvrs in lstlstSvrs:
-			for svr in lstSvrs[FIELD_FTPSVRrLIST]:
-				svr_name = svr[FTPSVR_FIELD_NAME]
-				ip = svr[FTPSVR_FIELD_IP]
-				#path
-				path = os.path.join(strPath,  lstSvrs[FIELD_FTPSVR_NAME]+'_'+svr_name+'_'+ip)
-				XswUtility.MKDir(path)
-				#一个服务器可能有多个目录要下载
-				for log_path in svr[FTPSVR_FIELD_PATH]:
-					if (bIsFuzzy):#是否模糊匹配
-						strCmd = CreateFtpDownCmd(('%s/%s/*%s*.log' % (ip, log_path, strDownStr)), g_cfg.GetLogFtpUser(), g_cfg.GetLogFtpPw(), path)
-					else:
-						strCmd = CreateFtpDownCmd(('%s/%s/%s' % (ip, log_path, strDownStr)), g_cfg.GetLogFtpUser(), g_cfg.GetLogFtpPw(), path)
-					if not dicCmd.get(ip):
-						dicCmd[ip] = []
-					dicCmd[ip].append(strCmd)
-
-		return dicCmd
-
 	def DownLogByFileName(self):
 		str = self.ui.btnDownLogByFileName.text()
 		if(str == TXT_BTN_DOWNLOG_IDLE):
@@ -330,7 +296,7 @@ class LogDlg(QtGui.QMainWindow):
 		strPath = g_cfg.GetLastLogPath()
 		XswUtility.MKDir(strPath)
 		g_cfg.SetLastLogPath(strPath)
-		dicCmd = self.CreateDownCmd(self.ui.edtDownByFileName.text(),  strPath,  self.GetSvrListFromTreeView(),  self.ui.chkFuzzy.isChecked())
+		dicCmd = CreateDownCmd(self.ui.edtDownByFileName.text(),  strPath,  self.GetSvrListFromTreeView(),  self.ui.chkFuzzy.isChecked())
 		for ip, lstCmd in dicCmd.items():
 			if( not self.ui.chkCompressOnFinish.isChecked()):
 				for cmd in lstCmd:

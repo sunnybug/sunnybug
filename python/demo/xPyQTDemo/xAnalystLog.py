@@ -272,22 +272,27 @@ class CAutoCheckLogThread(Thread):
     def Process(self):
         try:
             #定时触发
-            if self.nLastCheckTime!=0 and ((self.nLastCheckTime-time.time()) < self.nMinute*60):
-                return
+            # if self.nLastCheckTime!=0 and ((self.nLastCheckTime-time.time()) < self.nMinute*60):
+            #     return
             self.nLastCheckTime = time.time()
             self.GenerateParam()
             self.parent.signalProcessMsg.emit(MSG_ANALYST_LOG_START)
 
-            #开始下载
+            #路径
             strPath = g_cfg.GetCheckPath()
             XswUtility.MKDir(strPath)
             lstDown = g_cfg.GetAutoDownList()
+
+            ################################
+            #下载
             for down in lstDown:
-                for svr in g_lstFtpGroup:
-                    
-                    os.system(strCmd)
+                dicCmd = CreateDownCmd(down,  strPath,  g_lstFtpGroup,  False)
+                for ip, lstCmd in dicCmd.items():
+                    for cmd in lstCmd:
+                        DbgPrint(cmd)
+                        # os.system(cmd)
 
-
+            ################################
             #分析指定目录的log文件(支持子目录)
             directory = self.strCheckPath
             for root, dirs, files in os.walk(directory, True):
