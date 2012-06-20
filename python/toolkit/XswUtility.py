@@ -1,5 +1,6 @@
 #coding=utf-8
 import os
+import sys
 
 def ErrorExit(msg):
     print(msg)
@@ -42,38 +43,45 @@ import subprocess
 use_shell = True
 
 def RunShellWithReturnCode(command, print_output=True,
-                           universal_newlines=True):
-  """Executes a command and returns the output from stdout and the return code.
-  Args:
-    command: Command to execute.
-    print_output: If True, the output is printed to stdout.
-                  If False, both stdout and stderr are ignored.
-    universal_newlines: Use universal_newlines flag (default: True).
-  Returns:
-    Tuple (output, return code)
-  """
-  p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                       shell=use_shell, universal_newlines=universal_newlines)
-  if print_output:
-    output_array = []
-    while True:
-      line = p.stdout.readline()
-      if not line:
-        break
-      #print(line.strip("\n"),)
- #     line = line.strip("\n")
-      print(line, end='')
-      output_array.append(line)
-    output = "".join(output_array)
-  else:
-    output = p.stdout.read()
-  p.wait()
-  errout = p.stderr.read()
-  #if print_output and errout:
-  #  print >>sys.stderr, errout
-  p.stdout.close()
-  p.stderr.close()
-  return output, p.returncode
+                            universal_newlines=True):
+    import subprocess
+    handle = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
+    if print_output:
+       print(handle.communicate()[0] )
+# def RunShellWithReturnCode(command, print_output=True,
+#                            universal_newlines=True):
+#   """Executes a command and returns the output from stdout and the return code.
+#   Args:
+#     command: Command to execute.
+#     print_output: If True, the output is printed to stdout.
+#                   If False, both stdout and stderr are ignored.
+#     universal_newlines: Use universal_newlines flag (default: True).
+#   Returns:
+#     Tuple (output, return code)
+#   """
+#   p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+#                        shell=use_shell, universal_newlines=universal_newlines)
+#   if print_output:
+#     output_array = []
+#     while True:
+#       line = p.stdout.readline()
+#       if not line:
+#         break
+#       #print(line.strip("\n"),)
+#  #     line = line.strip("\n")
+#       print(line, end='')
+#       output_array.append(line)
+#     output = "".join(output_array)
+#   else:
+#     output = p.stdout.read()
+#   p.wait()
+#   errout = p.stderr.read()
+#   if print_output and errout:
+#     #print >>sys.stderr, errout
+#     print(errout)
+#   p.stdout.close()
+#   p.stderr.close()
+#   return output, p.returncode
 
 def OutputCmd(command, silent_ok=False, universal_newlines=True,
              print_output=True):
@@ -95,6 +103,14 @@ def MKDir(strPath):
     if not os.mkdir(strPath):
         return False
     return True
+
+def IsPathExist(path):
+    '''判断文件/路径是否存在'''
+    if os.path.isfile(path):
+        return True
+    if os.path.exists(path):
+        return True
+    return False
 
 ################################################
 #遍历文件数组，统计目录名
@@ -423,6 +439,5 @@ if __name__ == '__main__':
     #if not MKDir('syslog'): print('fail')
     #CheckPythonCode(r'D:\\demo\\xswrun\\PythonDemo\\OSDemo.py')
     #Dir3_GB2312ToUTF8(r'D:\demo\xswrun\python\demo\xPyQTDemo\bin\9-14\t')
-    GetParentPath(r'D:\doc\gitpub\github_sunnybug\python\toolkit\XswUtility.py')
-    GetParentPath(r'D:\doc\gitpub\github_sunnybug\python\toolkit\\')
+    print('........')
     ''
