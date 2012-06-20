@@ -242,6 +242,7 @@ class CAutoCheckLogThread(Thread):
         self.strCheckPath = ''
         self.nMinute = 999
         self.nLastCheckTime = 0 #前一次检查时间
+        self.bDown = True           #是否下载
         self.taskMgr = CCmdTaskMgr(self)
 
     def run(self):  #重写run()方法，把自己的线程函数的代码放到这里
@@ -264,27 +265,19 @@ class CAutoCheckLogThread(Thread):
 
     def GenerateParam(self):
         self.strCheckPath = self.parent.ui.edtCheckLogPath.text()
+        self.bDown = self.parent.ui.chkAllGroup.isChecked()
         if self.parent.ui.edtCheckLogMinute.text() != '':
             self.nMinute = int(self.parent.ui.edtCheckLogMinute.text())
         else:
             self.nMinute = 1
-        
-    def Process(self):
-        try:
-            #定时触发
-            if self.nLastCheckTime!=0 and ((self.nLastCheckTime-time.time()) < self.nMinute*60):
-                return
-            self.nLastCheckTime = time.time()
-            self.GenerateParam()
-            self.parent.signalProcessMsg.emit(MSG_ANALYST_LOG_START)
 
-            #路径
-            strPath = g_cfg.GetCheckPath()
-            XswUtility.MKDir(strPath)
-            lstDown = g_cfg.GetAutoDownList()
-
+    def Down(self, strPath):
             ################################
             #下载
+            if not self.bDown:
+                return
+
+            lstDown = g_cfg.GetAutoDownList()
             for down in lstDown:
                 lstFtpGroup = []
                 #相关服务器
@@ -302,6 +295,22 @@ class CAutoCheckLogThread(Thread):
                             break
                         #DbgPrint(cmd)
                         os.system(cmd)
+           
+        
+    def Process(self):
+        try:
+            #定时触发
+            if self.nLastCheckTime!=0 and ((self.nLastCheckTime-time.time()) < self.nMinute*60):
+                return
+            self.nLastCheckTime = time.time()
+            self.GenerateParam()
+            self.parent.signalProcessMsg.emit(MSG_ANALYST_LOG_START)
+
+            #路径
+            strPath = g_cfg.GetCheckPath()
+            XswUtility.MKDir(strPath)
+
+            self.Down(strPath)
 
             ################################
             #分析指定目录的log文件(支持子目录)

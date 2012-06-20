@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>773</width>
+    <width>769</width>
     <height>719</height>
    </rect>
   </property>
@@ -344,80 +344,6 @@
          <string>目标服务器列表为config.py的g_lstFtpGroup</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_6">
-        <property name="geometry">
-         <rect>
-          <x>730</x>
-          <y>40</y>
-          <width>24</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>分钟</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_7">
-        <property name="geometry">
-         <rect>
-          <x>640</x>
-          <y>40</y>
-          <width>31</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>间隔</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="edtCheckLogMinute">
-        <property name="geometry">
-         <rect>
-          <x>674</x>
-          <y>40</y>
-          <width>50</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>50</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>50</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="inputMask">
-         <string/>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="edtCheckLogPath">
-        <property name="geometry">
-         <rect>
-          <x>60</x>
-          <y>39</y>
-          <width>573</width>
-          <height>20</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_8">
-        <property name="geometry">
-         <rect>
-          <x>6</x>
-          <y>30</y>
-          <width>48</width>
-          <height>39</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>LOG目录:</string>
-        </property>
-       </widget>
        <widget class="QPushButton" name="btnCheckLog">
         <property name="enabled">
          <bool>true</bool>
@@ -436,6 +362,68 @@
         <property name="checkable">
          <bool>false</bool>
         </property>
+       </widget>
+       <widget class="QWidget" name="">
+        <property name="geometry">
+         <rect>
+          <x>6</x>
+          <y>30</y>
+          <width>751</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLabel" name="label_8">
+           <property name="text">
+            <string>LOG目录:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="edtCheckLogPath"/>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="chkCheckLogTab_Down">
+           <property name="text">
+            <string>下载</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>间隔</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="edtCheckLogMinute">
+           <property name="minimumSize">
+            <size>
+             <width>50</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>50</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="inputMask">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>分钟</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </widget>
      </widget>
@@ -471,8 +459,8 @@
    <slot>OnLogPathEditFinish()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>483</x>
-     <y>39</y>
+     <x>102</x>
+     <y>50</y>
     </hint>
     <hint type="destinationlabel">
      <x>423</x>
@@ -487,8 +475,8 @@
    <slot>OnDownSpeedEditFinish()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>740</x>
-     <y>50</y>
+     <x>52</x>
+     <y>40</y>
     </hint>
     <hint type="destinationlabel">
      <x>186</x>
@@ -503,8 +491,8 @@
    <slot>ImportLog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>534</x>
-     <y>188</y>
+     <x>322</x>
+     <y>140</y>
     </hint>
     <hint type="destinationlabel">
      <x>205</x>
@@ -519,8 +507,8 @@
    <slot>MergeLog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>761</x>
-     <y>188</y>
+     <x>322</x>
+     <y>140</y>
     </hint>
     <hint type="destinationlabel">
      <x>199</x>
@@ -535,8 +523,8 @@
    <slot>OnBtnDumpCmd()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>342</x>
-     <y>188</y>
+     <x>322</x>
+     <y>140</y>
     </hint>
     <hint type="destinationlabel">
      <x>219</x>
@@ -567,8 +555,8 @@
    <slot>OnSvrTreeClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>65</x>
-     <y>349</y>
+     <x>68</x>
+     <y>140</y>
     </hint>
     <hint type="destinationlabel">
      <x>171</x>
@@ -583,8 +571,8 @@
    <slot>OnAddTask()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>225</x>
-     <y>233</y>
+     <x>228</x>
+     <y>140</y>
     </hint>
     <hint type="destinationlabel">
      <x>188</x>
@@ -599,8 +587,8 @@
    <slot>OnClearTask()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>406</x>
-     <y>233</y>
+     <x>322</x>
+     <y>140</y>
     </hint>
     <hint type="destinationlabel">
      <x>263</x>
@@ -615,8 +603,8 @@
    <slot>DownLogByFileName()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>588</x>
-     <y>233</y>
+     <x>322</x>
+     <y>140</y>
     </hint>
     <hint type="destinationlabel">
      <x>273</x>

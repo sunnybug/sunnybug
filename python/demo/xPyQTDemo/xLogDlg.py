@@ -117,7 +117,7 @@ WARNLIST_INFO        = 3
 
 class CWarnListUI():
 	def __init__(self,  parent,  treeview):
-		self.model = QtGui.QStandardItemModel(0, 4, parent)
+		self.model = QtGui.QStandardItemModel (0, 4, parent)
 		self.model.setHeaderData(WARNLIST_TYPE, QtCore.Qt.Horizontal, "类型")
 		self.model.setHeaderData(WARNLIST_SVR, QtCore.Qt.Horizontal, "服务器")
 		self.model.setHeaderData(WARNLIST_FILENAME, QtCore.Qt.Horizontal, "文件名")
@@ -133,7 +133,7 @@ class CWarnListUI():
 		#历史信息缓存
 		self.dicCache = {}
 
-	def Add(self,  type,  filename,  info, svr):
+	def Add(self,  type,  filename,  info, svr, file_full_name):
 		#过滤服务器名、文件名、规则一致的
 		str = filename + "x" + info + "x" + svr
 		if self.dicCache.get(str)  != None:
@@ -144,7 +144,8 @@ class CWarnListUI():
 		self.model.setData(self.model.index(0, WARNLIST_TYPE), type)
 		self.model.setData(self.model.index(0, WARNLIST_SVR), svr)
 		self.model.setData(self.model.index(0, WARNLIST_FILENAME), filename)
-		self.model.setData(self.model.index(0, WARNLIST_INFO), info)
+		dicItemData = {0:info,1:file_full_name}
+		self.model.setItemData(self.model.index(0, WARNLIST_INFO), dicItemData)
 
 #========================================================================
 #LogForm
@@ -183,6 +184,7 @@ class LogDlg(QtGui.QMainWindow):
 		self.ui.edtCheckLogMinute.setText(g_cfg.GetCheckMiniute())
 		self.uiWarnList = CWarnListUI(self,  self.ui.treeViewWarnLog) 
 		self.ui.edtDownSpeed.setText(g_cfg.GetDownSpeed())
+		self.ui.chkCheckLogTab_Down.setChecked(True)
 
 		##########
 		#服务器列表
@@ -282,7 +284,7 @@ class LogDlg(QtGui.QMainWindow):
 
 	def AddWarnLog(self,  stAddWarnLogMsg):
 		self.uiWarnList.Add(stAddWarnLogMsg.type,  os.path.split(stAddWarnLogMsg.file_full_name)[1],  stAddWarnLogMsg.rule,
-			XswUtility.GetParentPath(stAddWarnLogMsg.file_full_name))
+			XswUtility.GetParentPath(stAddWarnLogMsg.file_full_name), stAddWarnLogMsg.file_full_name)
 
 	def OnAllTaskFinish(self):
 		if(self.ui.chkCompressOnFinish.isChecked()):
@@ -308,7 +310,15 @@ class LogDlg(QtGui.QMainWindow):
 		self.taskMgr.StopAllTask()
 
 	def OnDBClickedWarnLogList(self,  stQModelIndex):
-		DbgPrint(stQModelIndex)
+		#先定位到隐藏数据的那一列
+		stDataIdx = stQModelIndex.model().index(stQModelIndex.row(), WARNLIST_INFO)
+		#DbgPrint(stQModelIndex.model().itemData(stDataIdx))
+		#DbgPrint('cmd /c "%s"' % stQModelIndex.model().itemData(stDataIdx)[1])
+		
+		os.system('"%s"' % stQModelIndex.model().itemData(stDataIdx)[1])
+
+		#import webbrowser
+		#webbrowser.open('file:///%s' % stQModelIndex.model().itemData(stDataIdx)[1])
 
 	def chkAllSvrStateChanged(self,  nState):
 		#0:unchecked 2:checked
