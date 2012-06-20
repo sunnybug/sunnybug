@@ -4,6 +4,7 @@ from threading import Thread
 from cfg import *
 from config import *
 from xTaskMgr import *
+from XswUtility import *
 
 #========================================================================
 #help func
@@ -265,7 +266,7 @@ class CAutoCheckLogThread(Thread):
 
     def GenerateParam(self):
         self.strCheckPath = self.parent.ui.edtCheckLogPath.text()
-        self.bDown = self.parent.ui.chkAllGroup.isChecked()
+        self.bDown = self.parent.ui.chkCheckLogTab_Down.isChecked()
         if self.parent.ui.edtCheckLogMinute.text() != '':
             self.nMinute = int(self.parent.ui.edtCheckLogMinute.text())
         else:
@@ -294,8 +295,8 @@ class CAutoCheckLogThread(Thread):
                         if not self.run_flag:
                             break
                         #DbgPrint(cmd)
-                        os.system(cmd)
-           
+                        RunShellWithReturnCode(cmd)
+
         
     def Process(self):
         try:
