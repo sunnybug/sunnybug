@@ -286,12 +286,21 @@ class CAutoCheckLogThread(Thread):
             ################################
             #下载
             for down in lstDown:
-                dicCmd = CreateDownCmd(down,  strPath,  g_lstFtpGroup,  False)
+                lstFtpGroup = []
+                #相关服务器
+                for ftpGroup in g_lstFtpGroup:
+                    new_ftpGroup = [ftpGroup[FIELD_FTPSVR_NAME], []]
+                    for ftp in ftpGroup[FIELD_FTPSVR_LIST]:
+                        if ftp[FTPSVR_FIELD_NAME].find(down.svr_name) != -1:
+                            new_ftpGroup[FIELD_FTPSVR_LIST].append(ftp)
+                    lstFtpGroup.append(new_ftpGroup)
+                #
+                dicCmd = CreateDownCmd(down.file_name,  strPath,  lstFtpGroup,  False)
                 for ip, lstCmd in dicCmd.items():
                     for cmd in lstCmd:
                         if not self.run_flag:
                             break
-                       #DbgPrint(cmd)
+                        #DbgPrint(cmd)
                         os.system(cmd)
 
             ################################

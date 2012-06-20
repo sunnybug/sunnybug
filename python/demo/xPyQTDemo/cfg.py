@@ -170,6 +170,13 @@ class CErrRule:
             return retDetail
         return None
 
+class CAutoDownRule(object):
+    """docstring for CAutoDownRule"""
+    def __init__(self, file_name, svr_name):
+        super(CAutoDownRule, self).__init__()
+        self.file_name = file_name
+        self.svr_name = svr_name
+        
 class CCfg:
     def __init__(self,  ini_file,  history_file,  app_dir):
         self.ini_file = os.path.join(app_dir, ini_file)
@@ -208,7 +215,7 @@ class CCfg:
                     self.ErrRules.append(rule)
 
         for xml in self.xml_cfg_autodown:
-            self.lstAutoDown.append(xml.get('val'))
+            self.lstAutoDown.append( CAutoDownRule(xml.get('file_name'), xml.get('svr_name')))
                     
     def __del__(self):
         self.Write()

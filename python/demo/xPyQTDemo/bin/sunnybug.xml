@@ -15,13 +15,14 @@
             <!--<exclude_line val="排除我吧2" />-->
         </err>
         <err val="ID告警">
-            <!--文件名，正则表达式-->
+            <file_name val="AutoIDWarn 201.*\.log" />
         </err>
     </err_log>
 
     <!-- 定时下载log -->
     <auto_down>
-        <rule val="AutoIDWarn 201*.log"/>
+        <rule file_name="AutoIDWarn 201*.log" svr_name="DB"/>
+        <rule file_name="Error 201*.log" svr_name=""/>
    </auto_down>
     
 </sunnybug>
