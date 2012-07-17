@@ -42,8 +42,7 @@ import subprocess
 
 use_shell = True
 
-def RunShellWithReturnCode(command, print_output=True,
-                            universal_newlines=True):
+def RunShellWithReturnCode(command, print_output=True, universal_newlines=True):
     import subprocess
     handle = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
     if print_output:
@@ -126,8 +125,9 @@ def GetPaths(files):
                 dirs[file_dir] = 1;
     return dirs
 
-#父目录 c:\dd\x.bat --> dd
-def GetParentPath(strPath):  
+#父目录 c:\dd\x.bat --> c:\dd
+#only_name:True c:\dd\x.bat --> dd
+def GetParentPath(strPath, only_name=True):  
     if not strPath:  
         return None;  
       
@@ -139,7 +139,9 @@ def GetParentPath(strPath):
         lsPath = os.path.split(lsPath[0]);
         strParent = lsPath[0]
 
-    return strParent[strParent.rfind('\\')+1:]
+    if only_name:
+        strParent = strParent[strParent.rfind('\\')+1:]
+    return strParent
 
 ################################################
 #创建目录，dirs为相对路径，支持逐级创建目录
@@ -432,12 +434,13 @@ def Dir3_GB2312ToUTF8(strDir):
 ################################################
 #main
 if __name__ == '__main__':
+    print("==================")
     #print('ret:' ,OutputCmd('ipconfig'))
     #OutputCmd('ipconfig')
     #IncrediBuild(r'D:\fdemo\ChildWindow\ChildWindow.dsw')
     #SvnCopy(r'https://xswrun.svn.sourceforge.net/svnroot/xswrun/autoit', r'https://xswrun.svn.sourceforge.net/svnroot/xswrun/autoit3')
     #if not MKDir('syslog'): print('fail')
-    #CheckPythonCode(r'D:\\demo\\xswrun\\PythonDemo\\OSDemo.py')
+    # print(GetParentPath(r'D:\\demo\\xswrun\\PythonDemo\\OSDemo.py', only_name=False))
+    # print(GetParentPath(r'D:\\demo\\xswrun\\PythonDemo\\OSDemo.py', only_name=True))
     #Dir3_GB2312ToUTF8(r'D:\demo\xswrun\python\demo\xPyQTDemo\bin\9-14\t')
-    print('........')
-    ''
+    pass
