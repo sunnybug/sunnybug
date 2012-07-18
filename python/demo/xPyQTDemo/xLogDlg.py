@@ -40,13 +40,13 @@ class CLogTime():
 	def __init__(self,  str=''):
 		self.time = CLogTimeStruct()
 		self.str = ''
-		if str!= '':
+		if str != '':
 			ParseString(str)
 
 	def ParseString(str):
 		if  (len(str) < 25):
 			return False
-		if(str[4]=='-') and (str[7]=='-') and (str[10] ==' ') and (str[13]==':') and (str[16]==':') and (str[19]=='.'):
+		if(str[4] =='-') and (str[7] == '-') and (str[10] == ' ') and (str[13] == ':') and (str[16] == ':') and (str[19] == '.'):
 			return True
 			self.time.year          = int(str[0: 4])
 			self.time.month        = int(str[5: 7])
@@ -77,7 +77,7 @@ class CLogTime():
 	def GetTimeStr(str):
 		if  (len(str) < 25):
 			return None
-		if(str[4]=='-') and (str[7]=='-') and (str[10] ==' ') and (str[13]==':') and (str[16]==':') and (str[19]=='.'):
+		if(str[4] =='-') and (str[7] =='-') and (str[10] ==' ') and (str[13] ==':') and (str[16] ==':') and (str[19] =='.'):
 			return str[0:23]
 		return None
 
@@ -289,7 +289,7 @@ class LogDlg(QtGui.QMainWindow):
 	def OnAllTaskFinish(self):
 		if(self.ui.chkCompressOnFinish.isChecked()):
 			strFile = self.ui.edtLogPath.text()
-			if(strFile[-1] == '/' or strFile[-1]=='\\'):
+			if(strFile[-1] == '/' or strFile[-1] =='\\'):
 				strFile = strFile[0:-2]
 			strFile += ".7z"
 			XswUtility.Compress(self.ui.edtLogPath.text(),  strFile)

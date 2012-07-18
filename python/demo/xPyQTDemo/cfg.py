@@ -1,3 +1,5 @@
+#coding=utf-8
+
 import sys
 sys.path.append('../../toolkit')
 sys.path.append('bin')
@@ -12,7 +14,7 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 
 re.I = True
-
+##
 #=================================================================================================
 #cfg
 TXT_BTN_DOWNLOG_ING = '停止下载'

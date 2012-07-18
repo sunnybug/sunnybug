@@ -1,3 +1,5 @@
+#coding=utf-8
+
 reLogHeader = re.compile(r'(^\d{4}-\d{2}\-\d{2} \d{2}:\d{2}:\d{2}\.\d{3})\t')
 class CRegexMergeLogFile():
     def __init__(self):
