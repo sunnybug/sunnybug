@@ -127,7 +127,23 @@ def GetPaths(files):
 
 #父目录 c:\dd\x.bat --> c:\dd
 #only_name:True c:\dd\x.bat --> dd
-def GetParentPath(strPath, only_name=True):  
+def GetParentPath(strPath):  
+    if not strPath:  
+        return None;  
+      
+    lsPath = os.path.split(strPath)
+    strParent = ''
+    if lsPath[1]:
+        strParent = lsPath[0]
+    else: 
+        lsPath = os.path.split(lsPath[0]);
+        strParent = lsPath[0]
+
+    return strParent[strParent.rfind('\\')+1:]
+
+#c:\dd\x.bat --> c:\dd
+#only_name:True c:\dd\x.bat --> dd
+def GetPath(strPath, only_name=False):  
     if not strPath:  
         return None;  
       
