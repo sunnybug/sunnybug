@@ -45,8 +45,10 @@ use_shell = True
 def RunShellWithReturnCode(command, print_output=True, universal_newlines=True):
     import subprocess
     handle = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
-    if print_output:
-       print(handle.communicate()[0] )
+    output = handle.communicate()[0] 
+    # if print_output:
+    #    print(output)
+    return output, handle.returncode
 # def RunShellWithReturnCode(command, print_output=True,
 #                            universal_newlines=True):
 #   """Executes a command and returns the output from stdout and the return code.
@@ -85,13 +87,12 @@ def RunShellWithReturnCode(command, print_output=True, universal_newlines=True):
 def OutputCmd(command, silent_ok=False, universal_newlines=True,
              print_output=True):
     print(command)
-    data, retcode = RunShellWithReturnCode(command, print_output,
-                                         universal_newlines)
+    data, retcode = RunShellWithReturnCode(command, print_output, universal_newlines)
 #    if retcode:
 #        ErrorExit("Got error status from %s:\n%s" % (command, data))
 #	if not silent_ok and not data:
 #		ErrorExit("No output from %s" % command)
-    return data,  retcode
+    return data, retcode
 
 ################################################
 #创建目录
@@ -432,13 +433,12 @@ def Dir2_GB2312ToUTF8(strDir):
 def File3_GB2312ToUTF8(strFilePath):
     strOutput = '%s.bak' % strFilePath
     strCMD = 'iconv.exe -f GB2312 -t UTF-8 "%s" > "%s"' % (strFilePath,  strOutput)
-    data,  ret = OutputCmd(strCMD)
-    return
-    if ret == 0:
-        os.remove(strFilePath)
-        os.rename(strOutput,  strFilePath)
-    else:
-        os.remove(strOutput)
+    OutputCmd(strCMD)
+    if not IsPathExist(strOutput):
+        return False
+    os.remove(strFilePath)
+    os.rename(strOutput,  strFilePath)
+    return True
     
 def Dir3_GB2312ToUTF8(strDir):
     for root, dirs, files in os.walk(strDir, True):
@@ -452,7 +452,7 @@ def Dir3_GB2312ToUTF8(strDir):
 if __name__ == '__main__':
     print("==================")
     #print('ret:' ,OutputCmd('ipconfig'))
-    #OutputCmd('ipconfig')
+    File3_GB2312ToUTF8(r'D:\doc\分布式\压测\2012-4-11\d1月魂谷\config\policy.ini')
     #IncrediBuild(r'D:\fdemo\ChildWindow\ChildWindow.dsw')
     #SvnCopy(r'https://xswrun.svn.sourceforge.net/svnroot/xswrun/autoit', r'https://xswrun.svn.sourceforge.net/svnroot/xswrun/autoit3')
     #if not MKDir('syslog'): print('fail')
